@@ -3,9 +3,12 @@ from django.urls import path, include
 from django.conf.urls.static import static
 
 from kamping import settings
+from camp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.camp_list, name="index"),
+    path('camp/', include('camp.urls')),
 
 ]
 

@@ -33,21 +33,21 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Django Blog</a>
+            <a class="navbar-brand" href="#">The Kamping</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">Anasayfa <span class="sr-only">(current)</span></a>
                 </li>
-                <li><a href="#">Etkinlikler</a></li>
+                <li><a href="#">---</a></li>
                 <li><a href="#">Keşfet</a></li>
 
             </ul>
 
             {% if user.is_authenticated %}
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"> <span class="glyphicon glyphicon-plus"></span>Event Create
+                    <li><a href="#"> <span class="glyphicon glyphicon-plus"></span> Create
                     </a>
                     </li>
                     <li class="dropdown">
@@ -79,11 +79,6 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-
-<div class="container" style="margin-top:30px;">
-
-    {% include 'messages.html' %}
-</div>
 
 
 {% block icerik %}

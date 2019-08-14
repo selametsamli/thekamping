@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+
+{% block icerik %}
+
+    {% for camp in camps %}
+        <h3><a href="#"> {{ camp.title }}</a></h3>
+
+        <p> Başlangıç tarihi: {{ camp.starter_date }}</p>
+
+        <p>Etkinliği oluşturan: <a href="/auths/{{ camp.user }}"> {{ camp.user }}</a></p>
+
+
+    {% endfor %}
+
+{% endblock %}

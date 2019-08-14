@@ -1,7 +1,7 @@
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from camp import views
 
 urlpatterns = [
-    path('', admin.site.urls),
+    path('camp-create', views.camp_create, name="camp-create"),
 
 ]

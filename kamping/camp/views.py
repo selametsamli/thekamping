@@ -1,8 +1,15 @@
-from django.shortcuts import render, redirect
+from django.http import HttpResponseForbidden
+from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
 from camp.forms import CampForm
 from camp.models import Camp
+
+
+def camp_list(request):
+    camps = Camp.objects.all()
+    context = {'camps': camps}
+    return render(request, 'camp/camp-list.html', context)
 
 
 def camp_create(request):
@@ -17,7 +24,9 @@ def camp_create(request):
     return render(request, 'camp/camp-create.html', context={'form': form})
 
 
-def camp_list(request):
-    events = Camp.objects.all()
-    context = {'events': events}
-    return render(request, 'camp/camp-list.html', context)
+def camp_remove(request, slug):
+    event = get_object_or_404(Camp, slug=slug)
+    if request.user != event.user:
+        return HttpResponseForbidden
+    event.delete()
+    return redirect('')
