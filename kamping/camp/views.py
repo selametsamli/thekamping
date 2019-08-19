@@ -1,4 +1,4 @@
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
@@ -30,3 +30,17 @@ def camp_remove(request, slug):
         return HttpResponseForbidden
     event.delete()
     return redirect('')
+
+
+def camp_update(request, slug):
+    camp = get_object_or_404(Camp, slug=slug)
+    if request.user != camp.user:
+        return HttpResponseForbidden
+    form = CampForm(instance=camp, data=request.POST or None,
+                    files=request.FILES or None)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(camp.get_absolute_url())
+    context = {'form': form, 'event': camp}
+
+    return render(request, 'camp/camp-update.html', context)
