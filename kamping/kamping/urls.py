@@ -7,7 +7,7 @@ from camp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.camp_list, name="index"),
+    path('', views.camp_list, name="camp-list"),
     path('camp/', include('camp.urls')),
 
 ]

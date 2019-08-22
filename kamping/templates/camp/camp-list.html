@@ -5,7 +5,7 @@
 {% block icerik %}
 
     {% for camp in camps %}
-        <h3><a href="#"> {{ camp.title }}</a></h3>
+        <h3><a href="{% url 'camp-detail' camp.slug %}"> {{ camp.title }}</a></h3>
 
         <p> Başlangıç tarihi: {{ camp.starter_date }}</p>
 

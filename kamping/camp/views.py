@@ -20,8 +20,14 @@ def camp_create(request):
             event = form.save(commit=False)
             event.user = request.user
             event.save()
-            return redirect('/camp')
+            return redirect('/')
     return render(request, 'camp/camp-create.html', context={'form': form})
+
+
+def camp_detail(request, slug):
+    form = CampForm()
+    camp = get_object_or_404(Camp, slug=slug)
+    return render(request, 'Camp/Camp-detail.html', context={'camp': camp, 'form': form})
 
 
 def camp_remove(request, slug):
