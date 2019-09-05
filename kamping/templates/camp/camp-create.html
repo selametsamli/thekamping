@@ -10,6 +10,14 @@
 
 {% block ust_icerik %}
 
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+                format: "DD.MM.YYYY"
+            });
+        });
+    </script>
+
 
 {% endblock %}
 {% block icerik %}
@@ -25,6 +33,21 @@
                 {% csrf_token %}
 
                 {% for field in form %}
+
+                    {% if field.name == 'starter_date' %}
+
+                    <div class="form-group">
+                        <label class="control-label">{{ field.label }}</label>
+                        <div class='input-group date' id='datetimepicker1'>
+                            {{ field }}
+                            <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                        </div>
+                    </div>
+
+
+                    {% else %}
 
                     <div class="form-group">
                         <div class="row">
@@ -45,6 +68,7 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                 {% endfor %}
 
                 <div class="form-group">

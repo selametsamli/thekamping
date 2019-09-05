@@ -1,3 +1,4 @@
+import os
 from uuid import uuid4
 
 from django.db import models
@@ -6,6 +7,13 @@ from django.db import models
 from django.urls import reverse
 from django.template.defaultfilters import slugify, safe
 from unidecode import unidecode
+
+
+def upload_to(instance, filename):
+    uzanti = filename.split('.')[-1]
+    new_name = "%s.%s" % (str(uuid4()), uzanti)
+    unique_id = instance.unique_id
+    return os.path.join('event', unique_id, new_name)
 
 
 class Camp(models.Model):
@@ -26,6 +34,9 @@ class Camp(models.Model):
 
     slug = models.SlugField(null=True, unique=True, editable=False, verbose_name='Slug')
 
+    image = models.ImageField(default='default/default.jpg', verbose_name='Resim', upload_to=upload_to,
+                              null=True, help_text='Kapak Fotoğrafı Yükleyiniz', blank=True)
+
     def get_absolute_url(self):
         return reverse('camp-detail', kwargs={'slug': self.slug})
 
@@ -38,6 +49,12 @@ class Camp(models.Model):
             new_slug = "%s-%s" % (slug, sayi)
         slug = new_slug
         return slug
+
+    def get_image(self):
+        if self.image:
+            return self.image.url
+        else:
+            return '/media/default/default.jpg'
 
     def save(self, *args, **kwargs):
         if self.id is None:

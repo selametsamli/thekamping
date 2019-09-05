@@ -7,10 +7,94 @@ Post List
 
 {% block ust_icerik %}
 
+<script type="text/javascript">
+
+</script>
 
 {% endblock %}
 
 
 {% block icerik %}
-<p class="page-header"> Camp Detail</p>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="camp">
+                <h2 class="page-header"><a href="{% url 'camp-list' %}">
+                    <span class="glyphicon glyphicon-circle-arrow-left"></span></a> <a>{{ camp.title|upper }}</a>
+
+                </h2>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <p><span class="glyphicon glyphicon-tree-deciduous"></span> <b>
+                            Etkinlik Sahibi: <a
+                                href="#">{{ camp.user }}</a>
+                        </b></p>
+                        {% if camp.image %}
+                        <img class="img-responsive" src="{{ camp.image.url }}" alt="">
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-4 ">
+
+                        <p class="pull-left">{{ camp.starter_date }}</p>
+                        <br><br>
+                        <p class="pull-left">{{camp.location}} </p>
+                        <br>
+
+                        <a href="#" class="btn btn-success btn-block">Katıl</a>
+
+
+                        <span title="Favori Sayısı">
+
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://CodingForEntrepreneurs.com/">
+                            Share on Facebook
+                        </a>
+                        <br>
+                        <a href="https://twitter.com/home?status=I'm%20going%20to%20learn%20to%20Code...%20Come%20build%20an%20web%20apsp%20with%20me!%20%23CFE%20and%20@justinmitchel%20http://codingforentrepreneurs.com/">
+                            Share on Twitter
+                        </a>
+                        <br>
+                        <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://swiftforentrepreneurs.com/&title=Be%20first%20%7C%20Join%20Swift%20for%20Entrepreneurs&summary=Swift%20for%20Entrepreneurs%20is%20a%20project-based%20programming%20course%20for%20non-technical%20founders.%20We'll%20learn%20how%20to%20build%20iOS%20apps%20from%20scratch%20using%20Apple's%20new%20programming%20language:%20Swift.%20Be%20first%20and%20learn%20with%20me!&source=http://swiftforentrepreneurs.com/">
+                            Share on Linkedin
+                        </a>
+                        <br>
+
+                        <hr>
+                                    <h2>
+                <strong>
+                    <a href="{{ url }}">Adresi Görüntüle</a>
+                </strong>
+            </h2>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8">
+
+                        <span>{{camp.content | safe}} </span>
+
+                        <p class="lead">
+                            Kategoriler: {{ camp.kategoriler.all }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% if request.user == camp.user %}
+            <div class="row">
+                <div class="col-lg-3 ">
+                    <a href="{% url 'camp-update' camp.slug %}" class=" btn btn-primary">Güncelle</a>
+                    <a href="{% url 'camp-remove' camp.slug %}" class=" btn btn-danger">Sil</a>
+                </div>
+            </div>
+            {% endif %}
+
+        <br>
+
+        </div>
+
+
+    </div>
+</div>
+
 {% endblock %}

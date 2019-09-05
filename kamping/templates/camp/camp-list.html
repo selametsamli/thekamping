@@ -3,15 +3,30 @@
 
 
 {% block icerik %}
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-lg-12 pull-center">
+            <div class="camp">
 
-    {% for camp in camps %}
-        <h3><a href="{% url 'camp-detail' camp.slug %}"> {{ camp.title }}</a></h3>
+                {% for camp in camps %}
+                    <div class="col-lg-3 pull-left">
+                        {% if camp.get_image %}
+                            <img width="275" height="208" class="img-responsive" src="{{ camp.get_image }}" alt="">
+                        {% endif %}
 
-        <p> Başlangıç tarihi: {{ camp.starter_date }}</p>
+                        <h3><a href="{% url 'camp-detail' camp.slug %}"> {{ camp.title }}</a></h3>
 
-        <p>Etkinliği oluşturan: <a href="/auths/{{ camp.user }}"> {{ camp.user }}</a></p>
+                        <p> Başlangıç tarihi: {{ camp.starter_date }}</p>
+
+                        <p>Etkinliği oluşturan: <a href="/auths/{{ camp.user }}"> {{ camp.user }}</a></p>
+
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
 
-    {% endfor %}
 
 {% endblock %}
