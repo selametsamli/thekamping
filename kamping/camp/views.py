@@ -1,10 +1,10 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseForbidden, HttpResponseRedirect
+from django.http import HttpResponseForbidden, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 
 from camp.forms import CampForm
-from camp.models import Camp
+from camp.models import Camp, CampParticipants
 
 
 def camp_list(request):
@@ -63,3 +63,19 @@ def camp_remove(request, slug):
         return HttpResponseForbidden
     camp.delete()
     return redirect('camp-list')
+
+
+@login_required(login_url=reverse_lazy('user-login'))
+def add_or_remove_camp(request, slug):
+    data = {'count': 0, 'status': 'deleted'}
+    camp = get_object_or_404(Camp, slug=slug)
+    participating_camp = CampParticipants.objects.filter(camp=camp, user=request.user)
+    if participating_camp.exists():
+        participating_camp.delete()
+    else:
+        CampParticipants.objects.create(camp=camp, user=request.user)
+        data.update({'status': 'added'})
+
+    count = camp.get_participant_count()
+    data.update({'count': count})
+    return JsonResponse(data=data)

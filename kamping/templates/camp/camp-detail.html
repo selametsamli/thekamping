@@ -1,15 +1,39 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Post List
+    Post List
 {% endblock %}
 
 
 {% block ust_icerik %}
 
-<script type="text/javascript">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".camp").on('click', '#add-camp', function (e) {
+                e.preventDefault();
+                var $this = $(this);
+                var $url = $this.attr('href');
+                $.ajax({
+                    url: $url,
+                    method: "GET",
+                    data: {},
+                    success: function (data) {
+                        var response = data.status;
+                        var count = data.count;
+                        $this.closest('div').find('.camp-participant-count').html(count);
+                        if (response == 'added') {
+                            $this.closest('div').find('#add-camp').html("Vazgeç Gönül");
 
-</script>
+                        } else {
+                            $this.closest('div').find('#add-camp').html("Katıl");
+
+                        }
+                    }
+                })
+            });
+        })
+
+    </script>
 
 {% endblock %}
 
@@ -17,36 +41,43 @@ Post List
 {% block icerik %}
 
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="col-lg-8 col-lg-offset-2">
-            <div class="camp">
-                <h2 class="page-header"><a href="{% url 'camp-list' %}">
-                    <span class="glyphicon glyphicon-circle-arrow-left"></span></a> <a>{{ camp.title|upper }}</a>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="camp">
 
-                </h2>
-                <div class="row">
+                    <h2 class="page-header"><a href="{% url 'camp-list' %}">
+                        <span class="glyphicon glyphicon-circle-arrow-left"></span></a> <a>{{ camp.title|upper }}</a>
+
+                    </h2>
                     <div class="col-lg-8">
                         <p><span class="glyphicon glyphicon-tree-deciduous"></span> <b>
                             Etkinlik Sahibi: <a
                                 href="#">{{ camp.user }}</a>
                         </b></p>
                         {% if camp.image %}
-                        <img class="img-responsive" src="{{ camp.image.url }}" alt="">
+                            <img class="img-responsive" src="{{ camp.image.url }}" alt="">
                         {% endif %}
                     </div>
                     <div class="col-lg-4 ">
 
                         <p class="pull-left">{{ camp.starter_date }}</p>
                         <br><br>
-                        <p class="pull-left">{{camp.location}} </p>
+                        <p class="pull-left">{{ camp.location }} </p>
                         <br>
 
-                        <a href="#" class="btn btn-success btn-block">Katıl</a>
-
-
-                        <span title="Favori Sayısı">
-
+                        <a href="{% url 'camp-add-or-remove' camp.slug %}"
+                           class=" btn btn-success btn-block" id="add-camp">
+                            {% if request.user.username in camp.get_added_camp_participants_user %}
+                                Vazgeç Gönül
+                            {% else %}
+                                Katıl
+                            {% endif %} </a>
+                        <p> Katılımcı Sayısı:
+                            <span class="camp-participant-count">
+                                     <span>{{ camp.get_participant_count }}</span>
+                            </span>
+                        </p>
                         <a href="https://www.facebook.com/sharer/sharer.php?u=http://CodingForEntrepreneurs.com/">
                             Share on Facebook
                         </a>
@@ -61,40 +92,39 @@ Post List
                         <br>
 
                         <hr>
-                                    <h2>
-                <strong>
-                    <a href="{{ url }}">Adresi Görüntüle</a>
-                </strong>
-            </h2>
+                        <h2>
+                            <strong>
+                                <a href="{{ url }}">Adresi Görüntüle</a>
+                            </strong>
+                        </h2>
 
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-lg-8">
 
-                        <span>{{camp.content | safe}} </span>
+                            <span>{{ camp.content | safe }} </span>
 
-                        <p class="lead">
-                            Kategoriler: {{ camp.kategoriler.all }}
-                        </p>
+                            <p class="lead">
+                                Kategoriler: {{ camp.kategoriler.all }}
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            {% if request.user == camp.user %}
-            <div class="row">
-                <div class="col-lg-3 ">
-                    <a href="{% url 'camp-update' camp.slug %}" class=" btn btn-primary">Güncelle</a>
-                    <a href="{% url 'camp-remove' camp.slug %}" class=" btn btn-danger">Sil</a>
-                </div>
-            </div>
-            {% endif %}
+                {% if request.user == camp.user %}
+                    <div class="row">
+                        <div class="col-lg-3 ">
+                            <a href="{% url 'camp-update' camp.slug %}" class=" btn btn-primary">Güncelle</a>
+                            <a href="{% url 'camp-remove' camp.slug %}" class=" btn btn-danger">Sil</a>
+                        </div>
+                    </div>
+                {% endif %}
 
-        <br>
+                <br>
+
+            </div>
+
 
         </div>
-
-
     </div>
-</div>
 
 {% endblock %}

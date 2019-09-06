@@ -1,6 +1,7 @@
 import os
 from uuid import uuid4
 
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
@@ -13,7 +14,7 @@ def upload_to(instance, filename):
     uzanti = filename.split('.')[-1]
     new_name = "%s.%s" % (str(uuid4()), uzanti)
     unique_id = instance.unique_id
-    return os.path.join('event', unique_id, new_name)
+    return os.path.join('camp', unique_id, new_name)
 
 
 class Camp(models.Model):
@@ -50,6 +51,20 @@ class Camp(models.Model):
         slug = new_slug
         return slug
 
+    def get_participant_count(self):
+        participant_count = self.camp_participants.count()
+        return participant_count
+
+    def get_come_camp_object(self):
+        data_list = []
+        qs = self.camp_participants.all()
+        for obj in qs:
+            data_list.append(obj.user)
+        return data_list
+
+    def get_added_camp_participants_user(self):
+        return self.camp_participants.values_list('user__username', flat=True)
+
     def get_image(self):
         if self.image:
             return self.image.url
@@ -66,3 +81,18 @@ class Camp(models.Model):
                 self.slug = self.get_unique_slug()
 
         super(Camp, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
+
+
+class CampParticipants(models.Model):
+    user = models.ForeignKey(User, null=True, default=1, related_name='camp_participants', on_delete=True)
+    camp = models.ForeignKey(Camp, null=True, on_delete=True, related_name='camp_participants')
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name="Oluşturulma Tarihi", null=True)
+
+    class Meta:
+        verbose_name_plural = 'Kampa gelen katılımcılar'
+
+    def __str__(self):
+        return "{} {}".format(self.user, self.camp)
