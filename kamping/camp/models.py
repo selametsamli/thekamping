@@ -4,10 +4,16 @@ from uuid import uuid4
 from django.contrib.auth.models import User
 from django.db import models
 
-# Create your models here.
 from django.urls import reverse
 from django.template.defaultfilters import slugify, safe
 from unidecode import unidecode
+
+from django.contrib.gis.db import models
+from django.contrib.gis.geos import Point
+from location_field.models.spatial import LocationField
+
+from django.contrib.gis.db import models as geomodels
+
 
 
 def upload_to(instance, filename):
@@ -30,13 +36,15 @@ class Camp(models.Model):
     starter_date = models.DateField(null=True, blank=True, verbose_name='Başlangıç günü')
 
     size = models.IntegerField(verbose_name='Katılımcı sayısı', null=True, default=0)
-    location = models.CharField(null=True, max_length=255, verbose_name='Lokasyon')
+    city = models.CharField(max_length=255, null=True)
+    location = LocationField(based_fields=['city'], zoom=7, default=Point(40.0, 29.0), null=True)
     category = models.CharField(choices=CATEGORY, blank=True, null=True, max_length=53, verbose_name='Kategori')
 
     slug = models.SlugField(null=True, unique=True, editable=False, verbose_name='Slug')
 
     image = models.ImageField(default='default/default.jpg', verbose_name='Resim', upload_to=upload_to,
                               null=True, help_text='Kapak Fotoğrafı Yükleyiniz', blank=True)
+
 
     def get_absolute_url(self):
         return reverse('camp-detail', kwargs={'slug': self.slug})
