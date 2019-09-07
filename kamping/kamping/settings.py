@@ -13,8 +13,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-from django.conf import settings
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -39,8 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'camp',
     'auths',
-    'location_field.apps.DefaultConfig',
-
 ]
 
 MIDDLEWARE = [
@@ -130,5 +126,3 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
