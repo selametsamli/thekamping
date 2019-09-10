@@ -25,7 +25,7 @@
                 <img style="height:150px" ; width="150px" ; class="pull-left"
                      src="{{ user.userprofile.get_profile_photo }}">
                 <br>
-                <a class="btn btn-default" href="#">Profilini Güncelle</a>
+                <a class="btn btn-default" href="{% url 'user-profile-update' %}">Profilini Güncelle</a>
             </div>
 
             <div class="col-lg-8 ">

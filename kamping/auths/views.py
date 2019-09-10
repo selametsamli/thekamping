@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404
 # Create your views here.
 from django.urls import reverse
 
-from auths.forms import LoginForm, RegisterForm
+from auths.forms import LoginForm, RegisterForm, UserProfileUpdateForm
 from camp.models import Camp, CampParticipants
 
 
@@ -59,3 +59,30 @@ def user_profile(request, username):
                }
 
     return render(request, 'auths/profile/userprofile.html', context=context)
+
+
+def profile_update(request):
+    sex = request.user.userprofile.sex
+    bio = request.user.userprofile.bio
+    profile_photo = request.user.userprofile.profile_photo
+    birth_day = request.user.userprofile.birth_day
+
+    initial = {'sex': sex, 'bio': bio, 'profile_photo': profile_photo, 'birth_day': birth_day}
+    form = UserProfileUpdateForm(initial=initial, instance=request.user, data=request.POST or None,
+                                 files=request.FILES or None)
+    if request.method == "POST":
+        if form.is_valid():
+            user = form.save(commit=True)
+            bio = form.cleaned_data.get('bio', None)
+            sex = form.cleaned_data.get('sex', None)
+            profile_photo = form.cleaned_data.get('profile_photo', None)
+            birth_day = form.cleaned_data.get('birth_day', None)
+
+            user.userprofile.sex = sex
+            user.userprofile.profile_photo = profile_photo
+            user.userprofile.bio = bio
+            user.userprofile.birth_day = birth_day
+            user.userprofile.save()
+            return HttpResponseRedirect(reverse('user-profile', kwargs={'username': user.username}))
+
+    return render(request, 'auths/profile/profile-update.html', context={'form': form})
