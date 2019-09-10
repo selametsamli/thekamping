@@ -87,8 +87,8 @@ class Camp(models.Model):
 
 
 class CampParticipants(models.Model):
-    user = models.ForeignKey(User, null=True, default=1, related_name='camp_participants', on_delete=True)
-    camp = models.ForeignKey(Camp, null=True, on_delete=True, related_name='camp_participants')
+    user = models.ForeignKey(User, null=True, default=1, related_name='camp_participants', on_delete=models.CASCADE)
+    camp = models.ForeignKey(Camp, null=True, on_delete=models.CASCADE, related_name='camp_participants')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Oluşturulma Tarihi", null=True)
 
     class Meta:

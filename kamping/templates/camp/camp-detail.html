@@ -61,42 +61,31 @@
                     </div>
                     <div class="col-lg-4 ">
 
-                        <p class="pull-left">{{ camp.starter_date }}</p>
-                        <br><br>
-                        <p class="pull-left">{{ camp.location }} </p>
-                        <br>
+                        <p class="pull-left">Kamp Tarihi: <span>{{ camp.starter_date }} {{ camp.starter_time }}</span>
+                        </p>
 
-                        <a href="{% url 'camp-add-or-remove' camp.slug %}"
-                           class=" btn btn-success btn-block" id="add-camp">
+                        <p class="pull-left">Kamp Yeri:<span>{{ camp.location }}</span></p>
+
+
+                        <br><br><br>
+                        <span><a href="{% url 'camp-add-or-remove' camp.slug %}"
+                                 class=" btn btn-success btn-block" id="add-camp">
                             {% if request.user.username in camp.get_added_camp_participants_user %}
                                 Vazgeç Gönül
                             {% else %}
                                 Katıl
-                            {% endif %} </a>
+                            {% endif %} </a></span>
+
+
                         <p> Katılımcı Sayısı:
                             <span class="camp-participant-count">
                                      <span>{{ camp.get_participant_count }}</span>
                             </span>
-                        </p>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=http://CodingForEntrepreneurs.com/">
-                            Share on Facebook
-                        </a>
-                        <br>
-                        <a href="https://twitter.com/home?status=I'm%20going%20to%20learn%20to%20Code...%20Come%20build%20an%20web%20apsp%20with%20me!%20%23CFE%20and%20@justinmitchel%20http://codingforentrepreneurs.com/">
-                            Share on Twitter
-                        </a>
-                        <br>
-                        <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://swiftforentrepreneurs.com/&title=Be%20first%20%7C%20Join%20Swift%20for%20Entrepreneurs&summary=Swift%20for%20Entrepreneurs%20is%20a%20project-based%20programming%20course%20for%20non-technical%20founders.%20We'll%20learn%20how%20to%20build%20iOS%20apps%20from%20scratch%20using%20Apple's%20new%20programming%20language:%20Swift.%20Be%20first%20and%20learn%20with%20me!&source=http://swiftforentrepreneurs.com/">
-                            Share on Linkedin
-                        </a>
-                        <br>
 
-                        <hr>
-                        <h2>
-                            <strong>
-                                <a href="{{ url }}">Adresi Görüntüle</a>
-                            </strong>
-                        </h2>
+                            <br>
+
+                            <span>
+                                <a href="{{ url }}">Adresi Görüntüle</a></span>
 
                     </div>
                     <div class="row">

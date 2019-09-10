@@ -1,0 +1,17 @@
+<div class="row">
+    {% for camp in camp_list %}
+        <div class="col-lg-3 pull-left">
+            <h3><a href="{% url 'camp-detail' camp.slug %}"> {{ camp.title }}</a></h3>
+
+            {% if camp.get_image %}
+                <img width="275" height="208" class="img-responsive" src="{{ camp.get_image }}" alt="">
+
+            {% endif %}
+
+            <p> {{ camp.starter_date }}</p>
+
+        </div>
+    {% endfor %}
+
+
+</div>

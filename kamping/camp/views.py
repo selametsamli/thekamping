@@ -27,9 +27,13 @@ def camp_create(request):
 
 
 def camp_detail(request, slug):
+    url = 'https://www.google.com/maps/search/'
+    for i in Camp.objects.all():
+        address = i.location
+    url = url + str(address)
     form = CampForm()
     camp = get_object_or_404(Camp, slug=slug)
-    return render(request, 'Camp/camp-detail.html', context={'camp': camp, 'form': form})
+    return render(request, 'Camp/camp-detail.html', context={'camp': camp, 'form': form, 'url': url})
 
 
 @login_required(login_url=reverse_lazy('user-login'))

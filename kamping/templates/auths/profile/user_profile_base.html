@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block ust_icerik %}
+{% endblock %}
+
+{% block title %} {{ user.profile.get_screen_name }}{% endblock %}
+
+{% block icerik %}
+
+
+    <div class="row ">
+        <div class="col-lg-10 pull-center" style="margin-top: 50px;">
+
+
+            <div class="col-lg-8">
+
+                <span class="text"> <b>{{ user.username }}</b> </span>
+                <br>
+
+                    <a href="#">Bio eklemek için tıklayın</a>
+            </div>
+            <div class="col-lg-2 pull-right ">
+                <img style="height:150px" ; width="150px" ; class="pull-left"
+                     src="{{ user.userprofile.get_profile_photo }}">
+                <br>
+                <a class="btn btn-default" href="#">Profilini Güncelle</a>
+            </div>
+
+            <div class="col-lg-8 ">
+                <h2 class="page-header"> Etkinlikler <span> ( {{ camp_list_count }} ) : </span></h2>
+
+
+                <div class="profile_camp_list">
+
+                    {% include 'auths/profile/userprofile.html' %}
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
