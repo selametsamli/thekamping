@@ -1,9 +1,11 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
+from django.template.loader import render_to_string
 from django.urls import reverse
 
 from auths.forms import LoginForm, RegisterForm, UserProfileUpdateForm
@@ -49,14 +51,30 @@ def user_logout(request):
 def user_profile(request, username):
     user = get_object_or_404(User, username=username)
 
+    data = {'html': ''}
+
+    page = request.GET.get('page1', 1)
     camp_list = Camp.objects.filter(user=user)
-    camp_joined_list = CampParticipants.objects.filter(user=user)
     camp_list_count = camp_list.count()
+    camp_list = joined_camp_and_created_camp_paginate(camp_list, page)
+
+    page2 = request.GET.get('page2', 1)
+    camp_joined_list = CampParticipants.objects.filter(user=user)
+    camp_joined_list_count = camp_joined_list.count()
+    camp_joined_list = joined_camp_and_created_camp_paginate(camp_joined_list, page2)
 
     context = {'user': user, 'camp_list': camp_list, 'camp_list_count': camp_list_count,
-               'camp_joined_list': camp_joined_list
+               'camp_joined_list': camp_joined_list, 'camp_joined_list_count': camp_joined_list_count,
+               'page': 'user-profile'
 
                }
+
+    if request.is_ajax():
+        html_camps = render_to_string('auths/profile/include/profile_camps_list.html', context=context)
+        html_joined = render_to_string('auths/profile/include/profile_joined_camps_list.html', context=context)
+        data.update({'html': html_camps, 'html_joined': html_joined})
+
+        return JsonResponse(data=data)
 
     return render(request, 'auths/profile/userprofile.html', context=context)
 
@@ -86,3 +104,15 @@ def profile_update(request):
             return HttpResponseRedirect(reverse('user-profile', kwargs={'username': user.username}))
 
     return render(request, 'auths/profile/profile-update.html', context={'form': form})
+
+
+def joined_camp_and_created_camp_paginate(queryset, page):
+    paginator = Paginator(queryset, 1)
+    try:
+        queryset = paginator.page(page)
+    except EmptyPage:
+        queryset = paginator.page(paginator.num_pages)
+    except PageNotAnInteger:
+        queryset = paginator.page(1)
+
+    return queryset

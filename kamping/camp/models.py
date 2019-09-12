@@ -69,7 +69,7 @@ class Camp(models.Model):
         if self.image:
             return self.image.url
         else:
-            return '/media/default/default.jpg'
+            return '/media/marijuana.jpg'
 
     def save(self, *args, **kwargs):
         if self.id is None:
