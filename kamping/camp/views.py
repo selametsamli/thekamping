@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -73,13 +74,18 @@ def camp_remove(request, slug):
 def add_or_remove_camp(request, slug):
     data = {'count': 0, 'status': 'deleted'}
     camp = get_object_or_404(Camp, slug=slug)
-    participating_camp = CampParticipants.objects.filter(camp=camp, user=request.user)
-    if participating_camp.exists():
-        participating_camp.delete()
+    if camp.status != 'yayında':
+        msg = "Bu Kampa çoktan başladı geç kaldınız!! katılamazsınız!"
+        durum = 'katilamaz'
+        data.update({'msg': msg, 'durum': durum})
     else:
-        CampParticipants.objects.create(camp=camp, user=request.user)
-        data.update({'status': 'added'})
+        participating_camp = CampParticipants.objects.filter(camp=camp, user=request.user)
+        if participating_camp.exists():
+            participating_camp.delete()
+        else:
+            CampParticipants.objects.create(camp=camp, user=request.user)
+            data.update({'status': 'added'})
 
-    count = camp.get_participant_count()
-    data.update({'count': count})
+        count = camp.get_participant_count()
+        data.update({'count': count})
     return JsonResponse(data=data)

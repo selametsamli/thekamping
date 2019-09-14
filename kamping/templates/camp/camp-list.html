@@ -21,6 +21,18 @@
 
                         <p>Etkinliği oluşturan: <a href="/auths/{{ camp.user }}"> {{ camp.user }}</a></p>
 
+
+                        {% if camp.status == 'yayında' %}
+                            <span class="text-info"> {{ camp.get_participant_count }} Kişi katıldı</span> <br>
+                            <span class="text text-success"><b>{{ camp.kalan_katilimci }}</b> Kişi katılabilir  </span>
+
+                        {% elif camp.status == 'başladı' %}
+                            <span class="text-primary"> {{ camp.get_participant_count }} Kişi bu kampın tadını çıkartıyor</span>
+                            <br>
+
+                        {% endif %}
+
+
                     </div>
                 {% endfor %}
             </div>

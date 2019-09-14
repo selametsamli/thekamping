@@ -33,8 +33,8 @@ class Camp(models.Model):
 
     size = models.IntegerField(verbose_name='Katılımcı sayısı', null=True, default=0)
     location = models.CharField(null=True, max_length=255, verbose_name='Lokasyon')
-    category = models.CharField(choices=CATEGORY, blank=True, null=True, max_length=53, verbose_name='Kategori')
-    status = models.CharField(choices=STATUS, blank=True, null=True, max_length=53, verbose_name='Status')
+    status = models.CharField(choices=STATUS, default='yayında', blank=True, null=True, max_length=53,
+                              verbose_name='Status')
 
     slug = models.SlugField(null=True, unique=True, editable=False, verbose_name='Slug')
 
@@ -67,6 +67,13 @@ class Camp(models.Model):
 
     def get_added_camp_participants_user(self):
         return self.camp_participants.values_list('user__username', flat=True)
+
+    def kalan_katilimci(self):
+        katilimci_sayisi = self.get_participant_count()
+        return self.size - katilimci_sayisi
+
+    def get_status(self):
+        return self.status
 
     def get_image(self):
         if self.image:

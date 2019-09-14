@@ -20,13 +20,20 @@
                     success: function (data) {
                         var response = data.status;
                         var count = data.count;
-                        $this.closest('div').find('.camp-participant-count').html(count);
-                        if (response == 'added') {
-                            $this.closest('div').find('#add-camp').html("Vazgeç Gönül");
+                        console.log(data.durum);
+
+                        if (data.durum == 'katilamaz') {
+                            alert(data.msg);
 
                         } else {
-                            $this.closest('div').find('#add-camp').html("Katıl");
+                            $this.closest('div').find('.camp-participant-count').html(count);
+                            if (response == 'added') {
+                                $this.closest('div').find('#add-camp').html("Vazgeç Gönül");
 
+                            } else {
+                                $this.closest('div').find('#add-camp').html("Katıl");
+
+                            }
                         }
                     }
                 })
