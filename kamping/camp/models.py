@@ -21,6 +21,8 @@ class Camp(models.Model):
     CATEGORY = (
         (None, 'Lütfen Seçiniz'), ('diğer', 'DİĞER'), ('yazılım', 'YAZILIM'), ('grafik tasarım', 'GRAFIK TASARIM'))
 
+    STATUS = ((None, 'Lütfen Seçiniz'), ('yayında', 'Yayında'), ('başladı', 'Başladı'), ('bitti', 'Bitti'))
+
     user = models.ForeignKey("auth.User", on_delete=models.CASCADE, verbose_name="Yazar", default=1)
     title = models.CharField(max_length=50, verbose_name="Başlık")
     content = models.TextField()
@@ -32,10 +34,11 @@ class Camp(models.Model):
     size = models.IntegerField(verbose_name='Katılımcı sayısı', null=True, default=0)
     location = models.CharField(null=True, max_length=255, verbose_name='Lokasyon')
     category = models.CharField(choices=CATEGORY, blank=True, null=True, max_length=53, verbose_name='Kategori')
+    status = models.CharField(choices=STATUS, blank=True, null=True, max_length=53, verbose_name='Status')
 
     slug = models.SlugField(null=True, unique=True, editable=False, verbose_name='Slug')
 
-    image = models.ImageField(default='default/default.jpg', verbose_name='Resim', upload_to=upload_to,
+    image = models.ImageField(default='IMG_4029.JPG', verbose_name='Resim', upload_to=upload_to,
                               null=True, help_text='Kapak Fotoğrafı Yükleyiniz', blank=True)
 
     def get_absolute_url(self):

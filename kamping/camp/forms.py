@@ -10,7 +10,7 @@ class CampForm(forms.ModelForm):
 
     class Meta:
         model = Camp
-        fields = ["title", "content", 'category', "starter_date", 'starter_time', 'location', 'image']
+        fields = ["title", "content", 'category', "starter_date", 'starter_time', 'location', 'image', 'size']
 
     def __init__(self, *args, **kwargs):
         super(CampForm, self).__init__(*args, **kwargs)
