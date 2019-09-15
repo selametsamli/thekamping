@@ -74,6 +74,8 @@ def camp_remove(request, slug):
 def add_or_remove_camp(request, slug):
     data = {'count': 0, 'status': 'deleted'}
     camp = get_object_or_404(Camp, slug=slug)
+
+    full_or_null = camp.size - camp.get_participant_count()
     if camp.status != 'yayında':
         msg = "Bu Kampa çoktan başladı geç kaldınız!! katılamazsınız!"
         durum = 'katilamaz'
@@ -82,10 +84,10 @@ def add_or_remove_camp(request, slug):
         participating_camp = CampParticipants.objects.filter(camp=camp, user=request.user)
         if participating_camp.exists():
             participating_camp.delete()
-        else:
+        elif full_or_null > 0:
             CampParticipants.objects.create(camp=camp, user=request.user)
             data.update({'status': 'added'})
 
-        count = camp.get_participant_count()
-        data.update({'count': count})
+    count = camp.get_participant_count()
+    data.update({'count': count})
     return JsonResponse(data=data)
