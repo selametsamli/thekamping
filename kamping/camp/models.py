@@ -42,12 +42,6 @@ class Camp(models.Model):
     image = models.ImageField(default='IMG_4029.JPG', verbose_name='Resim', upload_to=upload_to,
                               null=True, help_text='Kapak Fotoğrafı Yükleyiniz', blank=True)
 
-    @property
-    def is_expired(self):
-        if datetime.now > self.starter_date:
-            print('saü')
-        return False
-
     def get_absolute_url(self):
         return reverse('camp-detail', kwargs={'slug': self.slug})
 
@@ -112,3 +106,12 @@ class CampParticipants(models.Model):
 
     def __str__(self):
         return "{} {}".format(self.user, self.camp)
+
+
+class Photo(models.Model):
+    camp = models.ForeignKey(Camp, null=True, on_delete=models.CASCADE, related_name='photo')
+    file = models.FileField(upload_to='photos/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "{} {}".format(self.camp, self.uploaded_at)

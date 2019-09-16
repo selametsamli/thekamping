@@ -1,6 +1,6 @@
 from django import forms
 
-from camp.models import Camp
+from camp.models import Camp, Photo
 
 
 class CampForm(forms.ModelForm):
@@ -23,3 +23,9 @@ class CampForm(forms.ModelForm):
         }
 
         self.fields['starter_date'].widget.attrs.update(DATEPICKER)
+
+
+class PhotoForm(forms.ModelForm):
+    class Meta:
+        model = Photo
+        fields = ('file',)
