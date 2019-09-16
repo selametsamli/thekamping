@@ -1,3 +1,4 @@
+import datetime
 import os
 from uuid import uuid4
 
@@ -40,6 +41,12 @@ class Camp(models.Model):
 
     image = models.ImageField(default='IMG_4029.JPG', verbose_name='Resim', upload_to=upload_to,
                               null=True, help_text='Kapak Fotoğrafı Yükleyiniz', blank=True)
+
+    @property
+    def is_expired(self):
+        if datetime.now > self.starter_date:
+            print('saü')
+        return False
 
     def get_absolute_url(self):
         return reverse('camp-detail', kwargs={'slug': self.slug})
@@ -92,7 +99,6 @@ class Camp(models.Model):
 
         super(Camp, self).save(*args, **kwargs)
 
-    def __str__(self):
         return self.title
 
 

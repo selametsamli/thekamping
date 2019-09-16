@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models.functions import datetime
 from django.http import HttpResponseForbidden, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
@@ -28,12 +29,19 @@ def camp_create(request):
 
 
 def camp_detail(request, slug):
+    currentDT = datetime.datetime.now()
+    currentDT = currentDT.strftime("%Y-%m-%d %H:%M:%S")
+    camp = get_object_or_404(Camp, slug=slug)
+    starter_date = str(camp.starter_date) + " " + str(camp.starter_time)
+    if currentDT > starter_date:
+        camp.status = 'başladı'
+        camp.save()
+
     url = 'https://www.google.com/maps/search/'
     for i in Camp.objects.all():
         address = i.location
     url = url + str(address)
     form = CampForm()
-    camp = get_object_or_404(Camp, slug=slug)
     return render(request, 'Camp/camp-detail.html', context={'camp': camp, 'form': form, 'url': url})
 
 
