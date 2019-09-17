@@ -4,7 +4,6 @@ from django.http import HttpResponseForbidden, HttpResponseRedirect, JsonRespons
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
-from django.template import RequestContext
 
 from camp.forms import CampForm
 from camp.models import Camp, CampParticipants
@@ -117,6 +116,8 @@ def istegi_karsila(request):
     title = request.POST.get('title')
     content = request.POST.get('content')
     starter_date = request.POST.get('starter_date')
+
+    starter_date = datetime.datetime.strptime(starter_date, '%d.%m.%Y')
     starter_time = request.POST.get('starter_time')
     location = request.POST.get('location')
     size = request.POST.get('size')

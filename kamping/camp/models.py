@@ -12,7 +12,6 @@ from unidecode import unidecode
 
 from kamping import settings
 
-ACCEPTED_FORMATS = ['%d-%m-%Y', '%d.%m.%Y', '%d/%m/%Y']
 
 
 def upload_to(instance, filename):
