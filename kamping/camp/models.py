@@ -10,6 +10,10 @@ from django.urls import reverse
 from django.template.defaultfilters import slugify, safe
 from unidecode import unidecode
 
+from kamping import settings
+
+ACCEPTED_FORMATS = ['%d-%m-%Y', '%d.%m.%Y', '%d/%m/%Y']
+
 
 def upload_to(instance, filename):
     uzanti = filename.split('.')[-1]
@@ -30,7 +34,8 @@ class Camp(models.Model):
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Oluşturulma Tarihi")
     starter_time = models.TimeField(null=True, verbose_name='Başlangıç saati')
 
-    starter_date = models.DateField(null=True, blank=True, verbose_name='Başlangıç günü')
+    starter_date = models.DateField(null=True, blank=True,
+                                    verbose_name='Başlangıç günü')
 
     size = models.IntegerField(verbose_name='Katılımcı sayısı', null=True, default=0)
     location = models.CharField(null=True, max_length=255, verbose_name='Lokasyon')

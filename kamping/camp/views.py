@@ -19,21 +19,17 @@ def camp_list(request):
 @login_required(login_url=reverse_lazy('user-login'))
 def camp_create(request):
     data = {'html': ''}
-    form = CampForm(data=request.POST, files=request.FILES)
+    form = CampForm()
 
     step = request.POST.get('step')
     if step == 'step1' and request.method == 'POST':
-        form = CampForm(data=request.POST, files=request.FILES)
-        print(form.is_valid())
-        if form.is_valid():
-            camp = form.save(commit=False)
-            camp.user = request.user
-            camp.save()
+        t, c, sd, st, l, s = istegi_karsila(request)
+        Camp.objects.create(user=request.user, title=t, content=c, starter_date=sd, starter_time=st, location=l, size=s)
 
-            html = render_to_string('camp/include/camp-create/form-2-include.html', context={'form': form},
-                                    request=request)
-            data.update({'html': html})
-            return JsonResponse(data=data)
+        html = render_to_string('camp/include/camp-create/form-2-include.html', context={'form': form},
+                                request=request)
+        data.update({'html': html})
+        return JsonResponse(data=data)
 
     if request.is_ajax() and step == None:
         html = render_to_string('camp/include/camp-create/form-1-include.html', context={'form': form},
@@ -115,3 +111,14 @@ def add_or_remove_camp(request, slug):
     count = camp.get_participant_count()
     data.update({'count': count})
     return JsonResponse(data=data)
+
+
+def istegi_karsila(request):
+    title = request.POST.get('title')
+    content = request.POST.get('content')
+    starter_date = request.POST.get('starter_date')
+    starter_time = request.POST.get('starter_time')
+    location = request.POST.get('location')
+    size = request.POST.get('size')
+
+    return title, content, starter_date, starter_time, location, size

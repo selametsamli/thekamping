@@ -38,16 +38,24 @@
                 var starter_time = $('#step-1-form .form-control').closest('#starter_time').val();
                 var location = $('#step-1-form .form-control').closest('#location').val();
                 var size = $('#step-1-form .form-control').closest('#size').val();
-                console.log('title: ', title, 'content: ', content);
+
+                var data = {
+                    'url': url,
+                    'title': title,
+                    'content': content,
+                    'starter_date': starter_date,
+                    'starter_time': starter_time,
+                    'location': location,
+                    'size': size,
+                    'step': step,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                };
 
                 $.ajax({
                     url: url,
                     method: "POST",
                     dataType: 'json',
-                    data: {
-                        'step': step,
-                        'csrfmiddlewaretoken': '{{ csrf_token }}'
-                    },
+                    data: data,
                     success: function (data) {
 
                     }
