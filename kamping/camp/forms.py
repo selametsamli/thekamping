@@ -15,7 +15,7 @@ class CampForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CampForm, self).__init__(*args, **kwargs)
         for field in self.fields:
-            self.fields[field].widget.attrs = {'class': 'form-control'}
+            self.fields[field].widget.attrs = {'class': 'form-control', 'id': field}
         DATEPICKER = {
             'type': 'text',
             'class': 'form-control',
@@ -29,3 +29,7 @@ class PhotoForm(forms.ModelForm):
     class Meta:
         model = Photo
         fields = ('file',)
+
+
+class AForm(forms.Form):
+    a = forms.CharField(max_length=53)

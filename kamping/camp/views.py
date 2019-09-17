@@ -1,9 +1,10 @@
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models.functions import datetime
 from django.http import HttpResponseForbidden, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
+from django.template import RequestContext
 
 from camp.forms import CampForm
 from camp.models import Camp, CampParticipants
@@ -17,14 +18,29 @@ def camp_list(request):
 
 @login_required(login_url=reverse_lazy('user-login'))
 def camp_create(request):
-    form = CampForm()
-    if request.method == 'POST':
+    data = {'html': ''}
+    form = CampForm(data=request.POST, files=request.FILES)
+
+    step = request.POST.get('step')
+    if step == 'step1' and request.method == 'POST':
         form = CampForm(data=request.POST, files=request.FILES)
+        print(form.is_valid())
         if form.is_valid():
             camp = form.save(commit=False)
             camp.user = request.user
             camp.save()
-            return redirect('/')
+
+            html = render_to_string('camp/include/camp-create/form-2-include.html', context={'form': form},
+                                    request=request)
+            data.update({'html': html})
+            return JsonResponse(data=data)
+
+    if request.is_ajax() and step == None:
+        html = render_to_string('camp/include/camp-create/form-1-include.html', context={'form': form},
+                                request=request)
+        data.update({'html': html})
+        return JsonResponse(data=data)
+
     return render(request, 'camp/camp-create.html', context={'form': form})
 
 
