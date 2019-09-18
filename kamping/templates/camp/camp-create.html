@@ -28,39 +28,17 @@
                 }
             });
 
-            $(".camp-create").on('click', '#step1', function (e) {
-                var step = "step1";
-                e.preventDefault();
-                var url = "{% url 'camp-create' %} ";
-                var title = $('#step-1-form .form-control').closest('#title').val();
-                var content = $('#step-1-form .form-control').closest('#content').val();
-                var starter_date = $('#step-1-form .form-control').closest('#starter_date').val();
-                var starter_time = $('#step-1-form .form-control').closest('#starter_time').val();
-                var location = $('#step-1-form .form-control').closest('#location').val();
-                var size = $('#step-1-form .form-control').closest('#size').val();
-
-                var data = {
-                    'url': url,
-                    'title': title,
-                    'content': content,
-                    starter_date: starter_date,
-                    'starter_time': starter_time,
-                    'location': location,
-                    'size': size,
-                    'step': step,
-                    'csrfmiddlewaretoken': '{{ csrf_token }}'
-                };
+            $(".camp-create").on('submit', '#step-1-form', function (e) {
 
                 $.ajax({
-                    url: url,
-                    method: "POST",
-                    dataType: 'json',
-                    data: data,
+                    url: '{% url 'camp-create-save' %}',
+                    data: {'csrfmiddlewaretoken': '{{ csrf_token }}'},
+
                     success: function (data) {
-
+                        console.log(data);
                     }
+                });
 
-                })
             });
 
 

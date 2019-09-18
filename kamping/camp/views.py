@@ -1,12 +1,15 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models.functions import datetime
 from django.http import HttpResponseForbidden, HttpResponseRedirect, JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, render_to_response
+from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 
-from camp.forms import CampForm
-from camp.models import Camp, CampParticipants
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
+
+from camp.forms import CampForm, PhotoForm
+from camp.models import Camp, CampParticipants, Photo
 
 
 def camp_list(request):
@@ -15,22 +18,13 @@ def camp_list(request):
     return render(request, 'camp/camp-list.html', context)
 
 
+@csrf_exempt
 @login_required(login_url=reverse_lazy('user-login'))
-def camp_create(request):
-    data = {'html': ''}
+def camp_create_view(request):
+    data = {'html': '', 'step': ''}
     form = CampForm()
 
-    step = request.POST.get('step')
-    if step == 'step1' and request.method == 'POST':
-        t, c, sd, st, l, s = istegi_karsila(request)
-        Camp.objects.create(user=request.user, title=t, content=c, starter_date=sd, starter_time=st, location=l, size=s)
-
-        html = render_to_string('camp/include/camp-create/form-2-include.html', context={'form': form},
-                                request=request)
-        data.update({'html': html})
-        return JsonResponse(data=data)
-
-    if request.is_ajax() and step == None:
+    if request.is_ajax():
         html = render_to_string('camp/include/camp-create/form-1-include.html', context={'form': form},
                                 request=request)
         data.update({'html': html})
@@ -123,3 +117,33 @@ def istegi_karsila(request):
     size = request.POST.get('size')
 
     return title, content, starter_date, starter_time, location, size
+
+
+@csrf_exempt
+def upload_photo(request):
+    if request.method == 'GET':
+        photos_list = Photo.objects.all()
+        return render(request, 'camp/camp-create.html', {'photos': photos_list})
+
+    elif request.method == 'POST':
+
+        form = PhotoForm(request.POST, request.FILES)
+        if form.is_valid():
+            photo = form.save()
+            data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.url}
+        else:
+            data = {'is_valid': False}
+        return JsonResponse(data)
+
+
+@csrf_exempt
+def camp_create(request):
+    data = {'is_valid': False}
+    if request.method == 'POST':
+        form = CampForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            camp = form.save(commit=False)
+            camp.user = request.user
+            camp.save()
+            data = {'is_valid': False}
+    return JsonResponse(data)

@@ -1,5 +1,30 @@
-<br>
-<br>
-<br>
+{% load static %}
 
-<p>selam sürtükler</p>
+{% block ust_icerik %}
+    <script src="{% static 'bootstrap/js/jquery.ui.widget.js' %}"></script>
+    <script src="{% static 'bootstrap/js/jquery.iframe-transport.js' %}"></script>
+    <script src="{% static 'bootstrap/js/jquery.fileupload.js' %}"></script>
+
+    <script src="{% static 'js/basic-upload.js' %}"></script>
+{% endblock %}
+
+
+<button type="button" class="btn btn-primary js-upload-photos">
+    <span class="glyphicon glyphicon-cloud-upload"></span> Upload photos
+</button>
+
+<input id="fileupload" type="file" name="file" multiple
+       style="display: none;"
+       data-url="{% url 'basic-upload' %}"
+       data-form-data='{" csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+
+<table id="gallery" class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Photo</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>

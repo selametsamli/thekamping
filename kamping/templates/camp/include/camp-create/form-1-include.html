@@ -11,7 +11,7 @@
 
 
 {% endblock %}
-<form id="step-1-form" action="{% url 'camp-create' %}" enctype="multipart/form-data" method="post">
+<form id="step-1-form" action="{% url 'camp-create-save' %}" enctype="multipart/form-data" method="post">
 
     {{ form.media }}
     {% for field in form %}
