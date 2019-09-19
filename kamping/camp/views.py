@@ -23,7 +23,6 @@ def camp_create(request):
             camp = form.save(commit=False)
             camp.user = request.user
             camp.save()
-            form2 = PhotoForm()
             slug = camp.slug
             url = reverse('basic-upload', kwargs={'slug': slug})
             return HttpResponseRedirect(url)

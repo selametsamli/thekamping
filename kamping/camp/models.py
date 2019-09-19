@@ -42,9 +42,6 @@ class Camp(models.Model):
 
     slug = models.SlugField(null=True, unique=True, editable=False, verbose_name='Slug')
 
-    image = models.ImageField(default='IMG_4029.JPG', verbose_name='Resim', upload_to=upload_to,
-                              null=True, help_text='Kapak Fotoğrafı Yükleyiniz', blank=True)
-
     def get_absolute_url(self):
         return reverse('camp-detail', kwargs={'slug': self.slug})
 
@@ -78,12 +75,6 @@ class Camp(models.Model):
 
     def get_status(self):
         return self.status
-
-    def get_image(self):
-        if self.image:
-            return self.image.url
-        else:
-            return '/media/marijuana.jpg'
 
     def save(self, *args, **kwargs):
         if self.id is None:
