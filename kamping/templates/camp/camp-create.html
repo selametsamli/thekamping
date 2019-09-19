@@ -13,39 +13,12 @@
 
     <script type="text/javascript">
 
-
-        $(document).ready(function () {
-
-
-            var url = "{% url 'camp-create' %} ";
-            $.ajax({
-                url: url,
-                method: "POST",
-                dataType: 'json',
-                data: {'csrfmiddlewaretoken': '{{ csrf_token }}'},
-                success: function (data) {
-                    $(".show-form").html(data.html);
-                }
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+                format: "DD.MM.YYYY"
             });
-
-            $(".camp-create").on('submit', '#step-1-form', function (e) {
-
-                $.ajax({
-                    url: '{% url 'camp-create-save' %}',
-                    data: {'csrfmiddlewaretoken': '{{ csrf_token }}'},
-
-                    success: function (data) {
-                        console.log(data);
-                    }
-                });
-
-            });
-
-
         });
-
     </script>
-
 
 {% endblock %}
 {% block icerik %}
@@ -53,10 +26,62 @@
 
     <div class="camp-create row">
         <div class="col-lg-6 col-lg-offset-3">
-            <h1 class="page-header">Post Create</h1>
+            <h1 class="page-header">Camp Create</h1>
 
             <div class="show-form">
+                <form id="step-1-form" action="{% url 'camp-create' %}" enctype="multipart/form-data" method="post">
 
+                    {{ form.media }}
+                    {% csrf_token %}
+
+                    {% for field in form %}
+
+                        {% if field.name == 'starter_date' %}
+
+                            <div class="form-group">
+                                <label class="control-label">{{ field.label }}</label>
+                                <div class='input-group date' id='datetimepicker1'>
+                                    {{ field }}
+                                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                                </div>
+                            </div>
+
+
+                        {% else %}
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <label class="control-label">{{ field.label }}</label>
+                                        {{ field }}
+
+                                        {% if field.errors %}
+                                            {% for error in field.errors %}
+                                                <span class="text-danger">{{ error }}</span>
+                                            {% endfor %}
+
+                                        {% else %}
+                                            {% if field.help_text %}
+                                                <span class="text-success"> {{ field.help_text }}</span>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <input type="submit" value="Kaydet" id="step1"
+                                       class=" btn pull-right btn-sm btn-success">
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
 
         </div>

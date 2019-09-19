@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+    Camp Create
+{% endblock %}
+
+
+{% block ust_icerik %}
+
+    <script src="{% static 'bootstrap/js/jquery.ui.widget.js' %}"></script>
+    <script src="{% static 'bootstrap/js/jquery.iframe-transport.js' %}"></script>
+    <script src="{% static 'bootstrap/js/jquery.fileupload.js' %}"></script>
+
+    <script src="{% static 'js/basic-upload.js' %}"></script>
+
+
+{% endblock %}
+{% block icerik %}
+
+    <div class="modal fade" id="modal-progress" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Yükleniyor...</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="camp-create row">
+        <div class="col-lg-6 col-lg-offset-3">
+            <h1 class="page-header">Camp Create</h1>
+
+            <div class="show-form">
+                <div style="margin-bottom: 20px;">
+                    <button type="button" class="js-upload-photos well text-muted text-center"
+                            style="padding-top: 4rem; padding-bottom: 4rem;">
+                        <span class="glyphicon glyphicon-arrow-down" style="font-size: 4rem;"></span>
+                        <h3>Resim yüklemek için sürükleyin veya tıklayın.</h3>
+                    </button>
+                    <input id="fileupload" type="file" name="file" multiple
+                           style="display: none;"
+                           data-url="{% url 'basic-upload' slug %}"
+                           data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+
+                    <table id="gallery" class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Photo</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for photo in photos %}
+                            <div class="col-lg-6">
+                                <img class="img-responsive" src="{{ photo.file.url }}" alt="">
+                            </div>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+
+
+{% endblock %}

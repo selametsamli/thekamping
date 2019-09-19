@@ -13,7 +13,6 @@ from unidecode import unidecode
 from kamping import settings
 
 
-
 def upload_to(instance, filename):
     uzanti = filename.split('.')[-1]
     new_name = "%s.%s" % (str(uuid4()), uzanti)
@@ -97,6 +96,9 @@ class Camp(models.Model):
 
         super(Camp, self).save(*args, **kwargs)
 
+        return self.title
+
+    def __str__(self):
         return self.title
 
 
