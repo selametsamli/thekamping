@@ -62,9 +62,12 @@
                             Etkinlik Sahibi: <a
                                 href="#">{{ camp.user }}</a>
                         </b></p>
-                        {% if camp.image %}
-                            <img class="img-responsive" src="{{ camp.image.url }}" alt="">
-                        {% endif %}
+
+                        {% for camp_image in camp_image %}
+                            <img class="col-lg-8" src={{ camp_image.file.url }} alt="" >
+                        {% endfor %}
+
+
                     </div>
                     <div class="col-lg-4 ">
 

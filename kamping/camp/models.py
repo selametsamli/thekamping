@@ -107,8 +107,12 @@ class CampParticipants(models.Model):
 
 class Photo(models.Model):
     camp = models.ForeignKey(Camp, null=True, on_delete=models.CASCADE, related_name='photo')
-    file = models.FileField(upload_to='photos/')
+    file = models.FileField(upload_to='camp/', default='IMG_4029.JPG', verbose_name='resim', blank=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return "{} {}".format(self.camp, self.uploaded_at)
+        return "{}".format(self.camp)
+
+    def get_image(self):
+        if self.file:
+            return self.file

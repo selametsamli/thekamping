@@ -45,7 +45,7 @@ def upload_photo(request, slug):
                 photo = form.save(commit=False)
                 photo.camp = camp
                 photo.save()
-                data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.url}
+                data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.file}
             else:
                 data = {'is_valid': False}
             return JsonResponse(data)
@@ -56,6 +56,8 @@ def camp_detail(request, slug):
     currentDT = currentDT.strftime("%Y-%m-%d %H:%M:%S")
     camp = get_object_or_404(Camp, slug=slug)
     starter_date = str(camp.starter_date) + " " + str(camp.starter_time)
+    camp_image = Photo.objects.filter(camp=camp)
+
     if currentDT > starter_date:
         camp.status = 'başladı'
         camp.save()
@@ -65,7 +67,8 @@ def camp_detail(request, slug):
         address = i.location
     url = url + str(address)
     form = CampForm()
-    return render(request, 'Camp/camp-detail.html', context={'camp': camp, 'form': form, 'url': url})
+    return render(request, 'Camp/camp-detail.html',
+                  context={'camp': camp, 'form': form, 'url': url, 'camp_image': camp_image})
 
 
 @login_required(login_url=reverse_lazy('user-login'))

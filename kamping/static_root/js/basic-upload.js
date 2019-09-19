@@ -24,7 +24,7 @@ $(function () {
         done: function (e, data) {
             if (data.result.is_valid) {
                 $("#gallery tbody").prepend(
-                    "<tr><td><a href='" + data.result.url + "'>" + data.result.name + "</a></td></tr>"
+                    "<img class=\"img-responsive\" src=\"{{ photo.file.url }}\" alt=\"\">"
                 )
             }
         }
