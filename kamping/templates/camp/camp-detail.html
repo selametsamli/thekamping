@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     Post List
@@ -6,7 +7,31 @@
 
 
 {% block ust_icerik %}
+    <style>
+        .column img:hover {
+            opacity: 1;
+        }
 
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .container {
+            position: relative;
+            display: none;
+        }
+
+        .closebtn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: white;
+            font-size: 35px;
+            cursor: pointer;
+        }
+    </style>
     <script type="text/javascript">
         $(document).ready(function () {
             $(".camp").on('click', '#add-camp', function (e) {
@@ -38,8 +63,15 @@
                     }
                 })
             });
-        })
+        });
 
+        function myFunction(imgs) {
+            var expandImg = document.getElementById("expandedImg");
+
+            expandImg.src = imgs.src;
+
+            expandImg.parentElement.style.display = "block";
+        }
     </script>
 
 {% endblock %}
@@ -58,14 +90,10 @@
 
                     </h2>
                     <div class="col-lg-8">
-                        <p><span class="glyphicon glyphicon-tree-deciduous"></span> <b>
+                        <span class="glyphicon glyphicon-tree-deciduous"></span> <b>
                             Etkinlik Sahibi: <a
                                 href="#">{{ camp.user }}</a>
-                        </b></p>
-
-                        {% for camp_image in camp_image %}
-                            <img class="col-lg-8" src={{ camp_image.file.url }} alt="" >
-                        {% endfor %}
+                        </b>
 
 
                     </div>
@@ -122,8 +150,39 @@
 
             </div>
 
+            <div class="row">
+                <div class="col-lg-8 pull-center">
+                    <h3 class="page-header">Kamp ile ilgili görseller : </h3>
+
+                    {% for camp_image in camp_image %}
+                        <div class="col-lg-2">
+
+                            <div class="column">
+                                <img class="float-left" src="{{ camp_image.get_image }}" alt="Nature" height="100px"
+                                     width="100px"
+                                     onclick="myFunction(this);">
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <div class="container col-lg-12">
+                        <br>
+
+                        <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+
+                        <img id="expandedImg" style="width:100%">
+
+                        <div id="imgtext"></div>
+                    </div>
+
+                </div>
+            </div>
 
         </div>
     </div>
+
+
+
+
 
 {% endblock %}

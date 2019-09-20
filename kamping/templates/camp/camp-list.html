@@ -11,8 +11,8 @@
 
                 {% for camp in camps %}
                     <div class="col-lg-3 pull-left">
-                        {% if camp.get_image %}
-                            <img width="275" height="208" class="img-responsive" src="{{ camp.get_image }}" alt="">
+                        {% if camp.cover_photo %}
+                            <img width="275" height="208" class="img-responsive" src="{{ camp.cover_photo }}" alt="">
                         {% endif %}
 
                         <h3><a href="{% url 'camp-detail' camp.slug %}"> {{ camp.title }}</a></h3>

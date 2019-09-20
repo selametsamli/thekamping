@@ -45,7 +45,10 @@ def upload_photo(request, slug):
                 photo = form.save(commit=False)
                 photo.camp = camp
                 photo.save()
-                data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.file}
+                if camp.cover_photo == None:
+                    camp.cover_photo = photo.file.url
+                    camp.save()
+                data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.url}
             else:
                 data = {'is_valid': False}
             return JsonResponse(data)

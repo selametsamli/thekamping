@@ -34,6 +34,7 @@ class Camp(models.Model):
 
     starter_date = models.DateField(null=True, blank=True,
                                     verbose_name='Başlangıç günü')
+    cover_photo = models.CharField(max_length=250, verbose_name='cover_photo', null=True)
 
     size = models.IntegerField(verbose_name='Katılımcı sayısı', null=True, default=0)
     location = models.CharField(null=True, max_length=255, verbose_name='Lokasyon')
@@ -115,4 +116,4 @@ class Photo(models.Model):
 
     def get_image(self):
         if self.file:
-            return self.file
+            return self.file.url
