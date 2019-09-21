@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    Post List
+    {{ camp.title }}
 {% endblock %}
 
 
@@ -147,17 +147,35 @@
 
                             </li>
                         </ul>
-
                     {% endif %}
-
                 </div>
-
             </div>
         </div>
 
+        <div class="camp-photos col-lg-8 ">
+            <h3 class="page-header"><span class="glyphicon glyphicon-picture"></span> Kamp ile ilgili görseller : </h3>
+
+            {% for camp_image in camp_image %}
+                <div class="col-lg-2">
+                    <div class="column">
+                        <img class="float-left" src="{{ camp_image.get_image }}" alt="Nature" height="100px"
+                             width="100px"
+                             onclick="myFunction(this);">
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="container col-lg-12">
+                <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+
+                <img id="expandedImg" style="width:100%">
+
+                <div id="imgtext"></div>
+            </div>
+
+
+        </div>
+
     </div>
-
-
-
 
 {% endblock %}
