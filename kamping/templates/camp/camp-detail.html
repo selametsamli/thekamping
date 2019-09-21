@@ -91,10 +91,18 @@
                     </h2>
                     <div class="col-lg-8">
                         <span class="glyphicon glyphicon-tree-deciduous"></span> <b>
-                            Etkinlik Sahibi: <a
-                                href="#">{{ camp.user }}</a>
-                        </b>
-
+                        Etkinlik Sahibi: <a
+                            href="#">{{ camp.user }}</a>
+                    </b>
+                        <br><br>
+                        <div class="col-lg-8 pull-center">
+                            <img src="{{ camp.cover_photo }}" alt="" width="100%">
+                        </div>
+                        <br>
+                        <div class="col-lg-8 pull-left">
+                            <p class="text-capitalize"><span>{{ camp.content | safe }} </span></p>
+                        </div>
+                        <br><br>
 
                     </div>
                     <div class="col-lg-4 ">
@@ -129,7 +137,6 @@
                     <div class="row">
                         <div class="col-lg-8">
 
-                            <span>{{ camp.content | safe }} </span>
 
                             <p class="lead">
                                 Kategoriler: {{ camp.kategoriler.all }}
@@ -149,7 +156,7 @@
                 <br>
 
             </div>
-
+            <br><br><br>
             <div class="row">
                 <div class="col-lg-8 pull-center">
                     <h3 class="page-header">Kamp ile ilgili görseller : </h3>
