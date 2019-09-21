@@ -107,12 +107,12 @@ def profile_update(request):
 
 
 def joined_camp_and_created_camp_paginate(queryset, page):
-    paginator = Paginator(queryset, 1)
+    paginator = Paginator(queryset, 2)
     try:
         queryset = paginator.page(page)
     except EmptyPage:
         queryset = paginator.page(paginator.num_pages)
     except PageNotAnInteger:
-        queryset = paginator.page(1)
+        queryset = paginator.page(2)
 
     return queryset

@@ -35,7 +35,8 @@ def upload_photo(request, slug):
         raise Http404("Bu gönderiyi fotoğraf ekleyemezsiniz.")
     else:
         if request.method == 'GET':
-            photos_list = Photo.objects.all()
+            camp = get_object_or_404(Camp, slug=slug)
+            photos_list = Photo.objects.filter(camp=camp)
             return render(request, 'camp/camp-create_step2.html', {'photos': photos_list, 'slug': slug})
 
         elif request.method == 'POST':
