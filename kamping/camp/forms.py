@@ -1,6 +1,6 @@
 from django import forms
 
-from camp.models import Camp, Photo
+from camp.models import Camp, Photo, Comment
 
 
 class CampForm(forms.ModelForm):
@@ -31,5 +31,12 @@ class PhotoForm(forms.ModelForm):
         fields = ('file',)
 
 
-class AForm(forms.Form):
-    a = forms.CharField(max_length=53)
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['icerik']
+
+    def __init__(self, *args, **kwargs):
+        super(CommentForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs = {'class': 'form-control'}

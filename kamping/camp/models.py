@@ -1,16 +1,16 @@
-import datetime
 import os
 from uuid import uuid4
 
 from django.contrib.auth.models import User
 from django.db import models
 
-# Create your models here.
 from django.urls import reverse
 from django.template.defaultfilters import slugify, safe
 from unidecode import unidecode
 
-from kamping import settings
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
+from vote.models import VoteModel
 
 
 def upload_to(instance, filename):
@@ -117,3 +117,37 @@ class Photo(models.Model):
     def get_image(self):
         if self.file:
             return self.file.url
+
+
+class Comment(VoteModel, models.Model):
+    user = models.ForeignKey(User, null=True, default=1, related_name='+', on_delete=True)
+    is_parent = models.BooleanField(default=False)
+    content_type = models.ForeignKey(to=ContentType, null=True, on_delete=True)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    icerik = models.TextField(verbose_name='Yorum', max_length=1000, blank=False, null=True)
+    comment_date = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        username = self.user.username
+        text = "{0} {1}".format(username, self.content_type.model)
+        return text
+
+    class Meta:
+        verbose_name_plural = "Questions"
+
+    @classmethod
+    def add_comment(cls, nesne, model_type, user, icerik):
+        content_type = ContentType.objects.get_for_model(nesne.__class__)
+        cls.objects.create(user=user, icerik=icerik, content_type=content_type, object_id=nesne.pk)
+        if model_type == 'comment':
+            nesne.is_parent = True
+            nesne.save()
+
+    def get_child_comment(self):
+        if self.is_parent:
+            content_type = ContentType.objects.get_for_model(self.__class__)
+            all_child_comment = Comment.objects.filter(content_type=content_type, object_id=self.pk)
+            return all_child_comment
+        return None

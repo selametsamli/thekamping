@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, Http404
 from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
@@ -9,7 +9,8 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 
 from auths.forms import LoginForm, RegisterForm, UserProfileUpdateForm
-from camp.models import Camp, CampParticipants
+from camp.forms import CommentForm
+from camp.models import Camp, CampParticipants, Comment
 
 
 def user_login(request):
@@ -116,3 +117,33 @@ def joined_camp_and_created_camp_paginate(queryset, page):
         queryset = paginator.page(2)
 
     return queryset
+
+
+def new_add_comment(request, pk, model_type):
+    data = {'is_valid': True, 'event_comment_html': '', 'model_type': model_type}
+
+    nesne = None
+    all_comment = None
+    form = CommentForm(data=request.POST)
+
+    if model_type == 'camp':
+        nesne = get_object_or_404(Camp, pk=pk)
+    elif model_type == 'comment':
+        nesne = get_object_or_404(Comment, pk=pk)
+    else:
+        raise Http404
+
+    if form.is_valid():
+        icerik = form.cleaned_data.get('icerik')
+        Comment.add_comment(nesne, model_type, request.user, icerik)
+
+    if model_type == "comment":
+        nesne = nesne.content_object
+
+    comment_html = render_to_string('event/include/comment/comment-list-partial.html', context={'event': nesne})
+
+    data.update({
+        'event_comment_html': comment_html
+    })
+
+    return JsonResponse(data=data)
