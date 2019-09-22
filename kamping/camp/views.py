@@ -2,10 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.db.models.functions import datetime
 from django.http import HttpResponseForbidden, HttpResponseRedirect, JsonResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 
-from camp.forms import CampForm, PhotoForm
-from camp.models import Camp, CampParticipants, Photo
+from camp.forms import CampForm, PhotoForm, CommentForm
+from camp.models import Camp, CampParticipants, Photo, Comment
 
 
 def camp_list(request):
@@ -61,6 +62,7 @@ def camp_detail(request, slug):
     camp = get_object_or_404(Camp, slug=slug)
     starter_date = str(camp.starter_date) + " " + str(camp.starter_time)
     camp_image = Photo.objects.filter(camp=camp)
+    comment_form = CommentForm(data=request.POST)
 
     if currentDT > starter_date:
         camp.status = 'başladı'
@@ -72,7 +74,8 @@ def camp_detail(request, slug):
     url = url + str(address)
     form = CampForm()
     return render(request, 'Camp/camp-detail.html',
-                  context={'camp': camp, 'form': form, 'url': url, 'camp_image': camp_image})
+                  context={'camp': camp, 'form': form, 'url': url, 'camp_image': camp_image,
+                           'comment_form': comment_form})
 
 
 @login_required(login_url=reverse_lazy('user-login'))
@@ -128,4 +131,51 @@ def add_or_remove_camp(request, slug):
 
     count = camp.get_participant_count()
     data.update({'count': count})
+    return JsonResponse(data=data)
+
+
+def new_add_comment(request, pk, model_type):
+    data = {'is_valid': True, 'camp_comment_html': '', 'model_type': model_type}
+
+    nesne = None
+    all_comment = None
+    comment_form = CommentForm(data=request.POST)
+
+    if model_type == 'camp':
+        nesne = get_object_or_404(Camp, pk=pk)
+    elif model_type == 'comment':
+        nesne = get_object_or_404(Comment, pk=pk)
+    else:
+        raise Http404
+
+    if comment_form.is_valid():
+        icerik = comment_form.cleaned_data.get('icerik')
+        Comment.add_comment(nesne, model_type, request.user, icerik)
+
+    if model_type == "comment":
+        nesne = nesne.content_object
+
+    comment_html = render_to_string('camp/include/comment/comment-list-partial.html', context={'camp': nesne})
+
+    data.update({
+        'camp_comment_html': comment_html
+    })
+
+    return JsonResponse(data=data)
+
+
+def get_child_comment_form(request):
+    data = {'form_html': ''}
+    pk = request.GET.get('comment_pk')
+    comment = get_object_or_404(Comment, pk=pk)
+    comment_form = CommentForm()
+    form_html = render_to_string('camp/include/comment/comment-child-comment-form.html', context={
+        'comment_form': comment_form,
+        'comment': comment,
+    }, request=request)
+
+    data.update({
+        'form_html': form_html
+    })
+
     return JsonResponse(data=data)

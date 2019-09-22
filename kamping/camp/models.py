@@ -93,6 +93,15 @@ class Camp(models.Model):
     def __str__(self):
         return self.title
 
+    def get_camp_new_comment(self):
+        content_type = ContentType.objects.get_for_model(self)
+        object_id = self.id
+        all_comment = Comment.objects.filter(content_type=content_type, object_id=object_id)
+        return all_comment
+
+    def get_camp_comment_count(self):
+        return len(self.get_camp_new_comment())
+
 
 class CampParticipants(models.Model):
     user = models.ForeignKey(User, null=True, default=1, related_name='camp_participants', on_delete=models.CASCADE)
