@@ -40,3 +40,8 @@ class CommentForm(forms.ModelForm):
         super(CommentForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs = {'class': 'form-control'}
+
+
+class SearchForm(forms.Form):
+    search = forms.CharField(required=False, max_length=500, widget=forms.TextInput(
+        attrs={'placeholder': 'Bir şeyler arayınız ', 'class': 'form-control col-lg-2'}))

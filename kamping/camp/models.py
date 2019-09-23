@@ -131,12 +131,13 @@ class Photo(models.Model):
 class Comment(VoteModel, models.Model):
     user = models.ForeignKey(User, null=True, default=1, related_name='+', on_delete=True)
     is_parent = models.BooleanField(default=False)
-    content_type = models.ForeignKey(to=ContentType, null=True, on_delete=True)
+    content_type = models.ForeignKey(to=ContentType, null=True, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
     icerik = models.TextField(verbose_name='Yorum', max_length=1000, blank=False, null=True)
     comment_date = models.DateTimeField(auto_now_add=True, null=True)
+    #camp = models.ForeignKey(Camp, null=True, on_delete=models.CASCADE, related_name='comment')
 
     def __str__(self):
         username = self.user.username

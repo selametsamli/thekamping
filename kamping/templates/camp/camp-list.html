@@ -3,10 +3,23 @@
 
 
 {% block icerik %}
-    <br>
-    <br>
+
     <div class="row">
         <div class="col-lg-12 pull-center">
+            <div class="col-lg-12">
+
+                <form style="margin-bottom: 15px;" class="col-lg-6" action="{% url 'camp-list' %}">
+                    <div class="col-lg-8">
+                        {% for field in search_form %}
+                            {{ field }}
+                        {% endfor %}
+                    </div>
+                    <input class="btn btn-success col-lg-2 " value="Ara" type="submit">
+
+                </form>
+
+            </div>
+
             <div class="camp">
 
                 {% for camp in camps %}

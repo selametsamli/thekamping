@@ -5,13 +5,22 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 
-from camp.forms import CampForm, PhotoForm, CommentForm
+from camp.forms import CampForm, PhotoForm, CommentForm, SearchForm
 from camp.models import Camp, CampParticipants, Photo, Comment
+from django.db.models import Q
 
 
 def camp_list(request):
     camps = Camp.objects.all()
-    context = {'camps': camps}
+    search_form = SearchForm(data=request.GET or None)
+    if search_form.is_valid():
+        search = search_form.cleaned_data.get('search', None)
+        if search:
+            camps = camps.filter(
+                Q(content__icontains=search) | Q(title__icontains=search) | Q(
+                    user__username__icontains=search)).distinct()
+
+    context = {'camps': camps, 'search_form': search_form}
     return render(request, 'camp/camp-list.html', context)
 
 
