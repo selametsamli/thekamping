@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 from django.urls import reverse
-from django.template.defaultfilters import slugify, safe
+from django.template.defaultfilters import slugify
 from unidecode import unidecode
 
 from django.contrib.contenttypes.models import ContentType
@@ -26,7 +26,7 @@ class Camp(models.Model):
 
     STATUS = ((None, 'Lütfen Seçiniz'), ('yayında', 'Yayında'), ('başladı', 'Başladı'), ('bitti', 'Bitti'))
 
-    user = models.ForeignKey("auth.User", on_delete=models.CASCADE, verbose_name="Yazar", default=1)
+    user = models.ForeignKey("auth.User", on_delete=models.CASCADE, verbose_name="Yazar", blank=True)
     title = models.CharField(max_length=50, verbose_name="Başlık")
     content = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Oluşturulma Tarihi")
@@ -137,7 +137,8 @@ class Comment(VoteModel, models.Model):
 
     icerik = models.TextField(verbose_name='Yorum', max_length=1000, blank=False, null=True)
     comment_date = models.DateTimeField(auto_now_add=True, null=True)
-    #camp = models.ForeignKey(Camp, null=True, on_delete=models.CASCADE, related_name='comment')
+
+    # camp = models.ForeignKey(Camp, null=True, on_delete=models.CASCADE, related_name='comment')
 
     def __str__(self):
         username = self.user.username

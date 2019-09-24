@@ -10,6 +10,7 @@ urlpatterns = [
     path('', views.camp_list, name="camp-list"),
     path('camp/', include('camp.urls')),
     path('auths/', include('auths.urls')),
+    path('blog/', include('blog.urls')),
 
 ]
 
