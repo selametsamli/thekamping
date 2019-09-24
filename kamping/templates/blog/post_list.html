@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+
+{% block icerik %}
+
+    <div class="row">
+        <div class="col-lg-12 pull-center">
+            <div class="col-lg-12">
+
+                <form style="margin-bottom: 15px;" class="col-lg-6" action="{% url 'camp-list' %}">
+                    <div class="col-lg-8">
+                        {% for field in search_form %}
+                            {{ field }}
+                        {% endfor %}
+                    </div>
+                    <input class="btn btn-success col-lg-2 " value="Ara" type="submit">
+
+                </form>
+
+            </div>
+
+            <div class="camp">
+
+                {% for post in posts %}
+                    <div class="col-lg-3 pull-left">
+
+                        <a href="{% url 'post-detail' post.slug %}">{{ post.title }}</a>
+
+
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
