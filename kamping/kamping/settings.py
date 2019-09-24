@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'camp',
     'auths',
+    'blog',
     'vote'
+
 ]
 
 MIDDLEWARE = [
