@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from django.urls import reverse, reverse_lazy
 
@@ -44,3 +44,12 @@ def post_update(request, slug):
         return HttpResponseRedirect(blog.get_absolute_url())
     context = {'form': form, 'blog': blog}
     return render(request, 'blog/post_update.html', context=context)
+
+
+@login_required(login_url=reverse_lazy('user-login'))
+def post_remove(request, slug):
+    post = get_object_or_404(Blog, slug=slug)
+    if request.user != post.author:
+        return HttpResponseForbidden
+    post.delete()
+    return HttpResponseRedirect(reverse('post-list'))
