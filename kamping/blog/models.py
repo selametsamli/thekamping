@@ -1,5 +1,6 @@
 from uuid import uuid4
 
+from vote.models import VoteModel
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
@@ -8,7 +9,7 @@ from django.urls import reverse
 from unidecode import unidecode
 
 
-class Blog(models.Model):
+class Blog(VoteModel, models.Model):
     author = models.ForeignKey('auth.user', on_delete=models.CASCADE, related_name='Yazar', default=1)
     title = models.CharField(max_length=50, verbose_name="Başlık")
     content = RichTextField()
