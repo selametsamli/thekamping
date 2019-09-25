@@ -1,11 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404
 
 from django.urls import reverse, reverse_lazy
+from vote import *
 
 from blog.forms import BlogForm
 from blog.models import Blog
+from django.http import JsonResponse
 
 
 def post_list(request):
@@ -27,7 +29,17 @@ def post_create(request):
 
 
 def post_detail(request, slug):
-    post = get_object_or_404(Blog, slug=slug)
+    data = {'score': ''}
+    post = Blog.objects.get(slug=slug)
+    user = request.user
+    if request.is_ajax():
+        status = request.GET.get('status')
+        if status == 'vote_up':
+            post.votes.up(user.id)
+        else:
+            post.votes.down(user.id)
+        data.update({'score': post.vote_score})
+        return JsonResponse(data=data)
 
     return render(request, 'blog/post_detail.html', context={'post': post})
 

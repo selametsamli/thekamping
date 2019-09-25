@@ -10,18 +10,57 @@
 
 {% block ust_icerik %}
 
+    <script rel="script" type="text/javascript">
+        $(document).ready(function () {
+            $('.post-detail').on('click', '#vote_up', function (e) {
+                e.preventDefault();
+
+                var url = "{% url 'post-detail' post.slug %}";
+                var data = {'status': 'vote_up'};
+                var span = $('#vote_score');
+                $.ajax({
+                    url: url,
+                    data: data,
+                    success: function (data) {
+                        span.html(data.score);
+                    }
+                })
+            });
+
+            $('.post-detail').on('click', '#vote_down', function (e) {
+                e.preventDefault();
+                var span = $('#vote_score');
+                var url = "{% url 'post-detail' post.slug %}";
+                var data = {'status': 'vote_down'};
+                var $this = $(this);
+                $.ajax({
+                    url: url,
+                    data: data,
+                    success: function (data) {
+                        span.html(data.score);
+
+                    }
+                })
+            });
+
+        })
+
+
+    </script>
 
 {% endblock %}
+
 {% block icerik %}
 
-
-    <div class="post-create row ">
+    <div class="post-detail row ">
 
         <div class="col-lg-12 ">
-            <div class="col-lg-2" style="margin-top: 60px;">
-                <span class="text-success glyphicon glyphicon-thumbs-up pull-right"></span><br>
-                <span class="glyphicon glyphicon-thumbs-down pull-right"></span>
-
+            <div class="col-lg-2 selamet" style="margin-top: 60px;">
+                <span id="vote_score" class="col-lg-1 pull-right ">  {{ post.vote_score }} </span>
+                <div class="col-lg-1 pull-right">
+                    <span id="vote_up" class="text-success glyphicon glyphicon-thumbs-up pull-right"></span><br>
+                    <span id="vote_down" class="glyphicon glyphicon-thumbs-down pull-right"></span>
+                </div>
             </div>
 
             <div class="col-lg-8 ">
