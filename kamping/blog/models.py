@@ -1,3 +1,4 @@
+import os
 from uuid import uuid4
 
 from vote.models import VoteModel
@@ -9,12 +10,21 @@ from django.urls import reverse
 from unidecode import unidecode
 
 
+def upload_to(instance, filename):
+    uzanti = filename.split('.')[-1]
+    new_name = "%s.%s" % (str(uuid4()), uzanti)
+    unique_id = instance.unique_id
+    return os.path.join('blog', unique_id, new_name)
+
+
 class Blog(VoteModel, models.Model):
     author = models.ForeignKey('auth.user', on_delete=models.CASCADE, related_name='Yazar', default=1)
     title = models.CharField(max_length=50, verbose_name="Başlık")
     content = RichTextField()
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Oluşturulma Tarihi")
     slug = models.SlugField(null=True, unique=True, editable=False, verbose_name='Slug')
+    cover_photo = models.ImageField(verbose_name='Kapak fotoğrafı', upload_to=upload_to,
+                                    help_text='Kapak Fotoğrafı Yükleyiniz', blank=True)
 
     class Meta:
         verbose_name_plural = 'Gönderiler'
@@ -36,6 +46,9 @@ class Blog(VoteModel, models.Model):
 
         slug = new_slug
         return slug
+
+    def get_image(self):
+        return self.cover_photo.url
 
     def save(self, *args, **kwargs):
         if self.id is None:

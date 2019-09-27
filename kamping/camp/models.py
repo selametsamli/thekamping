@@ -60,6 +60,7 @@ class Camp(models.Model):
         participant_count = self.camp_participants.count()
         return participant_count
 
+
     def get_come_camp_object(self):
         data_list = []
         qs = self.camp_participants.all()
