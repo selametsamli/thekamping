@@ -13,7 +13,7 @@
                 {% for post in posts %}
                     <h2><a href="{{ post.get_absolute_url }}"><span>{{ post.title }}</span></a></h2>
                     {% if post.get_image %}
-                        <img class="img-responsive" src="{{ post.get_image }}">
+                        <img style="width: 100%; height: 400px;" class="img-responsive" src="{{ post.get_image }}">
                     {% endif %}
                     <p><b><span class="glyphicon glyphicon-user"></span>
                         Yazar <a href="{% url 'user-profile' post.author.username %}">{{ post.author.username }}</a></b>

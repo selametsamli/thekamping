@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-
+import json
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -139,3 +139,18 @@ CKEDITOR_CONFIGS = {
     },
 
 }
+
+with open("bilgiler.json") as read_file:
+    data = read_file.read()
+
+obj = json.loads(data)
+
+username = obj['username']
+password = obj['password']
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = username
+EMAIL_HOST_PASSWORD = password

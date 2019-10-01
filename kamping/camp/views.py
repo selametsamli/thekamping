@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 from django.db.models.functions import datetime
 from django.http import HttpResponseForbidden, HttpResponseRedirect, JsonResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
@@ -8,6 +9,9 @@ from django.urls import reverse_lazy, reverse
 from camp.forms import CampForm, PhotoForm, CommentForm, SearchForm
 from camp.models import Camp, CampParticipants, Photo, Comment
 from django.db.models import Q
+
+from kamping import settings
+from auths.decorators import is_user_active
 
 
 def camp_list(request):
@@ -24,6 +28,7 @@ def camp_list(request):
     return render(request, 'camp/camp-list.html', context)
 
 
+@is_user_active
 @login_required(login_url=reverse_lazy('user-login'))
 def camp_create(request):
     form = CampForm()
@@ -39,6 +44,7 @@ def camp_create(request):
     return render(request, 'camp/camp-create.html', context={'form': form})
 
 
+@is_user_active
 @login_required(login_url=reverse_lazy('user-login'))
 def upload_photo(request, slug):
     if request.user != get_object_or_404(Camp, slug=slug).user:
@@ -87,6 +93,7 @@ def camp_detail(request, slug):
                            'comment_form': comment_form})
 
 
+@is_user_active
 @login_required(login_url=reverse_lazy('user-login'))
 def camp_remove(request, slug):
     camp = get_object_or_404(Camp, slug=slug)
@@ -96,6 +103,7 @@ def camp_remove(request, slug):
     return redirect('')
 
 
+@is_user_active
 @login_required(login_url=reverse_lazy('user-login'))
 def camp_update(request, slug):
     camp = get_object_or_404(Camp, slug=slug)
@@ -111,6 +119,7 @@ def camp_update(request, slug):
     return render(request, 'camp/camp-update.html', context)
 
 
+@is_user_active
 @login_required(login_url='/user/login/')
 def camp_remove(request, slug):
     camp = get_object_or_404(Camp, slug=slug)
@@ -120,6 +129,7 @@ def camp_remove(request, slug):
     return redirect('camp-list')
 
 
+@is_user_active
 @login_required(login_url=reverse_lazy('user-login'))
 def add_or_remove_camp(request, slug):
     data = {'count': 0, 'status': 'deleted'}
@@ -143,6 +153,7 @@ def add_or_remove_camp(request, slug):
     return JsonResponse(data=data)
 
 
+@is_user_active
 def new_add_comment(request, pk, model_type):
     data = {'is_valid': True, 'camp_comment_html': '', 'model_type': model_type}
 

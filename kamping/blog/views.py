@@ -8,6 +8,7 @@ from vote import *
 from blog.forms import BlogForm
 from blog.models import Blog
 from django.http import JsonResponse
+from auths.decorators import is_user_active
 
 
 def post_list(request):
@@ -15,6 +16,7 @@ def post_list(request):
     return render(request, 'blog/post_list.html', context={'posts': posts})
 
 
+@is_user_active
 @login_required
 def post_create(request):
     form = BlogForm()
@@ -56,6 +58,7 @@ def post_update(request, slug):
         return HttpResponseRedirect(blog.get_absolute_url())
     context = {'form': form, 'blog': blog}
     return render(request, 'blog/post_update.html', context=context)
+
 
 
 @login_required(login_url=reverse_lazy('user-login'))

@@ -9,11 +9,12 @@ from django.db.models.signals import post_save
 class UserProfile(models.Model):
     SEX = ((None, 'Cinsiyet Seçiniz'), ('diğer', 'DİĞER'), ('erkek', 'ERKEK'), ('kadın', 'KADIN'))
 
-    user = models.OneToOneField(User, null=True, blank=False, verbose_name='User', on_delete=True)
+    user = models.OneToOneField(User, null=True, blank=False, verbose_name='User', on_delete=models.CASCADE)
     bio = models.TextField(max_length=1000, verbose_name='Hakkımda', blank=True, null=True)
     profile_photo = models.ImageField(null=True, blank=True, verbose_name='Profil Fotoğrafı')
     birth_day = models.DateTimeField(null=True, blank=True, verbose_name='Doğum Tarihi')
     sex = models.CharField(choices=SEX, blank=True, null=True, max_length=6, verbose_name='Cinsiyet')
+    email_confirmed = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = 'Kullanici Profilleri'

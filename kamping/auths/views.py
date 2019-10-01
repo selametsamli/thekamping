@@ -1,16 +1,23 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponseRedirect, JsonResponse, Http404
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404
 
-# Create your views here.
 from django.template.loader import render_to_string
 from django.urls import reverse
 
 from auths.forms import LoginForm, RegisterForm, UserProfileUpdateForm
-from camp.forms import CommentForm
-from camp.models import Camp, CampParticipants, Comment
+from camp.models import Camp, CampParticipants
+
+from django.contrib.sites.shortcuts import get_current_site
+from django.shortcuts import render, redirect
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+from django.template.loader import render_to_string
+from auths.tokens import account_activation_token
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
 
 def user_login(request):
@@ -36,6 +43,8 @@ def user_register(request):
         user.set_password(password)
         user.save()
         user = authenticate(username=username, password=password)
+        verification_mail_send(request)
+
         if user is not None:
             if user.is_active:
                 login(request, user)
@@ -119,3 +128,34 @@ def joined_camp_and_created_camp_paginate(queryset, page):
     return queryset
 
 
+def email_verification_page(request):
+    return render(request, 'auths/email-verification/inactive_user_page.html')
+
+
+def verification_mail_send(request):
+    current_site = get_current_site(request)
+    subject = 'TheKamping Email Doğrulaması'
+    message = render_to_string('auths/email-verification/account_activation_email.html', {
+        'user': request.user,
+        'domain': current_site.domain,
+        'uid': urlsafe_base64_encode(force_bytes(request.user.pk)),
+        'token': account_activation_token.make_token(request.user),
+    })
+    request.user.email_user(subject, message)
+    return HttpResponseRedirect(reverse('post-list'))
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and account_activation_token.check_token(user, token):
+        user.userprofile.email_confirmed = True
+        user.userprofile.save()
+        login(request, user)
+        return render(request, 'auths/email-verification/email_activation_success.html')
+    else:
+        return render(request, 'auths/email-verification/account_activation_invalid.html')
