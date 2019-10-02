@@ -140,7 +140,7 @@ CKEDITOR_CONFIGS = {
 
 }
 
-with open("bilgiler.json") as read_file:
+with open("bilgiler/bilgiler.json") as read_file:
     data = read_file.read()
 
 obj = json.loads(data)

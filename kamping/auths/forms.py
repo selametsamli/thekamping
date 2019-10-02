@@ -100,3 +100,4 @@ class UserProfileUpdateForm(forms.ModelForm):
             raise forms.ValidationError('Bu email adresi sistemde mevcut.')
 
         return email
+
