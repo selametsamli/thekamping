@@ -60,7 +60,6 @@ class Camp(models.Model):
         participant_count = self.camp_participants.count()
         return participant_count
 
-
     def get_come_camp_object(self):
         data_list = []
         qs = self.camp_participants.all()
@@ -163,3 +162,15 @@ class Comment(VoteModel, models.Model):
             all_child_comment = Comment.objects.filter(content_type=content_type, object_id=self.pk)
             return all_child_comment
         return None
+
+
+class Feedback(models.Model):
+    user = models.ForeignKey(User, null=True, default=1, related_name='feedback', on_delete=models.CASCADE)
+    camp = models.ForeignKey(Camp, null=True, on_delete=models.CASCADE, related_name='feedback')
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name="Oluşturulma Tarihi", null=True)
+    point = models.SmallIntegerField(verbose_name="Puan")
+    content = models.TextField()
+
+    def __str__(self):
+        username = self.user.username
+        return "{0} {1}".format(username, self.content)
