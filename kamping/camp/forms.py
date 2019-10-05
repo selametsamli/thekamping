@@ -1,6 +1,6 @@
 from django import forms
 
-from camp.models import Camp, Photo, Comment
+from camp.models import Camp, Photo, Comment, Feedback
 
 
 class CampForm(forms.ModelForm):
@@ -45,3 +45,14 @@ class CommentForm(forms.ModelForm):
 class SearchForm(forms.Form):
     search = forms.CharField(required=False, max_length=500, widget=forms.TextInput(
         attrs={'placeholder': 'Bir şeyler arayınız ', 'class': 'form-control col-lg-2'}))
+
+
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = ['content', 'point']
+
+    def __init__(self, *args, **kwargs):
+        super(FeedbackForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs = {'class': 'form-control'}

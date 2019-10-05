@@ -6,8 +6,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 
-from camp.forms import CampForm, PhotoForm, CommentForm, SearchForm
-from camp.models import Camp, CampParticipants, Photo, Comment
+from camp.forms import CampForm, PhotoForm, CommentForm, SearchForm, FeedbackForm
+from camp.models import Camp, CampParticipants, Photo, Comment, Feedback
 from django.db.models import Q
 
 from kamping import settings
@@ -199,3 +199,10 @@ def get_child_comment_form(request):
     })
 
     return JsonResponse(data=data)
+
+
+def feedback_create(request):
+    form = FeedbackForm()
+
+    context = {'form': form}
+    return render(request, 'feedback/feedback-create.html', context=context)
