@@ -209,11 +209,9 @@ def feedback_create(request, slug):
         return HttpResponseRedirect(reverse('camp-list'))
     else:
         form = FeedbackForm()
-        print(form.is_valid())
         if request.method == 'POST':
             form = FeedbackForm(data=request.POST, files=request.FILES)
             if form.is_valid():
-                print('saü')
                 feedback = form.save(commit=False)
                 feedback.camp = camp
                 feedback.user = user
