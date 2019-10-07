@@ -11,6 +11,6 @@ urlpatterns = [
     path('new-add-comment/<int:pk>/<str:model_type>', views.new_add_comment, name="new-add-comment"),
     path('get-child-comment-form/', views.get_child_comment_form, name="get-child-comment-form"),
 
-    path('feedback-create', views.feedback_create, name="feedback-create"),
+    path('feedback-create/<slug:slug>', views.feedback_create, name="feedback-create"),
 
 ]

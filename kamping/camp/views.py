@@ -201,8 +201,23 @@ def get_child_comment_form(request):
     return JsonResponse(data=data)
 
 
-def feedback_create(request):
-    form = FeedbackForm()
+def feedback_create(request, slug):
+    camp = get_object_or_404(Camp, slug=slug)
+    user = request.user
 
-    context = {'form': form}
-    return render(request, 'feedback/feedback-create.html', context=context)
+    if camp.status == 'yayında':
+        return HttpResponseRedirect(reverse('camp-list'))
+    else:
+        form = FeedbackForm()
+        print(form.is_valid())
+        if request.method == 'POST':
+            form = FeedbackForm(data=request.POST, files=request.FILES)
+            if form.is_valid():
+                print('saü')
+                feedback = form.save(commit=False)
+                feedback.camp = camp
+                feedback.user = user
+                feedback.save()
+
+        context = {'form': form, 'camp': camp}
+        return render(request, 'feedback/feedback-create.html', context=context)

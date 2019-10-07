@@ -21,7 +21,8 @@
             <h1 class="page-header">Feedback oluştur.</h1>
 
             <div class="show-form">
-                <form id="step-1-form" action="{% url 'feedback-create' %}" enctype="multipart/form-data" method="post">
+                <form id="step-1-form" action="{% url 'feedback-create' camp.slug %}" enctype="multipart/form-data"
+                      method="post">
 
                     {{ form.media }}
                     {% csrf_token %}
