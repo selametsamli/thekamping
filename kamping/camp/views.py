@@ -204,8 +204,9 @@ def get_child_comment_form(request):
 def feedback_create(request, slug):
     camp = get_object_or_404(Camp, slug=slug)
     user = request.user
+    camp_joined_list = CampParticipants.objects.filter(camp=camp, user=user)
 
-    if camp.status == 'yayında':
+    if camp.status == 'yayında' or not camp_joined_list:
         return HttpResponseRedirect(reverse('camp-list'))
     else:
         form = FeedbackForm()

@@ -10,7 +10,6 @@ urlpatterns = [
     path('camp-add-or-remove/<slug:slug>', views.add_or_remove_camp, name="camp-add-or-remove"),
     path('new-add-comment/<int:pk>/<str:model_type>', views.new_add_comment, name="new-add-comment"),
     path('get-child-comment-form/', views.get_child_comment_form, name="get-child-comment-form"),
-
     path('feedback-create/<slug:slug>', views.feedback_create, name="feedback-create"),
 
 ]
