@@ -12,6 +12,7 @@ from django.db.models import Q
 
 from kamping import settings
 from auths.decorators import is_user_active
+from camp.decorators import user_feedback_status
 
 
 def camp_list(request):
@@ -201,22 +202,17 @@ def get_child_comment_form(request):
     return JsonResponse(data=data)
 
 
+@user_feedback_status
 def feedback_create(request, slug):
     camp = get_object_or_404(Camp, slug=slug)
-    user = request.user
-    camp_joined_list = CampParticipants.objects.filter(camp=camp, user=user)
+    form = FeedbackForm()
+    if request.method == 'POST':
+        form = FeedbackForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            feedback = form.save(commit=False)
+            feedback.camp = camp
+            feedback.user = request.user
+            feedback.save()
 
-    if camp.status == 'yayında' or not camp_joined_list:
-        return HttpResponseRedirect(reverse('camp-list'))
-    else:
-        form = FeedbackForm()
-        if request.method == 'POST':
-            form = FeedbackForm(data=request.POST, files=request.FILES)
-            if form.is_valid():
-                feedback = form.save(commit=False)
-                feedback.camp = camp
-                feedback.user = user
-                feedback.save()
-
-        context = {'form': form, 'camp': camp}
-        return render(request, 'feedback/feedback-create.html', context=context)
+    context = {'form': form, 'camp': camp}
+    return render(request, 'feedback/feedback-create.html', context=context)
