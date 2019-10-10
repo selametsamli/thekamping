@@ -41,11 +41,11 @@ def user_register(request):
         user.set_password(password)
         user.save()
         user = authenticate(username=username, password=password)
-        verification_mail_send(request)
-
         if user is not None:
             if user.is_active:
                 login(request, user)
+                verification_mail_send(request)
+
                 return HttpResponseRedirect(reverse('camp-list'))
 
     return render(request, 'auths/register.html', context={'form': form})
