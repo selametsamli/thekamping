@@ -11,6 +11,7 @@ from unidecode import unidecode
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from vote.models import VoteModel
+from django.shortcuts import get_object_or_404
 
 
 def upload_to(instance, filename):
@@ -174,3 +175,8 @@ class Feedback(models.Model):
     def __str__(self):
         username = self.user.username
         return "{0} {1}".format(username, self.content)
+
+    @classmethod
+    def user_feedback_count(cls, user):
+        count = cls.objects.filter(user=user).count()
+        return count

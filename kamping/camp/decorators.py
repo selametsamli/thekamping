@@ -9,8 +9,8 @@ def user_feedback_status(func):
         camp_joined_list = CampParticipants.objects.filter(camp=camp, user=request.user)
         if camp.status == 'yayında' or not camp_joined_list:
             return HttpResponseRedirect(reverse('camp-list'))
-        elif CampParticipants.objects.filter(camp=camp, user=request.user).exists():
-            return HttpResponseRedirect(reverse('camp-list'))
+       # elif CampParticipants.objects.filter(camp=camp, user=request.user).exists():
+        #    return HttpResponseRedirect(reverse('camp-list'))
 
         return func(request, *args, **kwargs)
 

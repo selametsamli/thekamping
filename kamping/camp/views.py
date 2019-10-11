@@ -13,6 +13,7 @@ from django.db.models import Q
 from kamping import settings
 from auths.decorators import is_user_active
 from camp.decorators import user_feedback_status
+from auths.models import UserProfile, User
 
 
 def camp_list(request):
@@ -206,12 +207,21 @@ def get_child_comment_form(request):
 def feedback_create(request, slug):
     camp = get_object_or_404(Camp, slug=slug)
     form = FeedbackForm()
+    user_feedback_count = Feedback.user_feedback_count(camp.user) + 1
     if request.method == 'POST':
         form = FeedbackForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             feedback = form.save(commit=False)
             feedback.camp = camp
             feedback.user = request.user
+            camp.user.userprofile.organizer_score += feedback.point
+            try:
+                camp.user.userprofile.star_point = round(
+                    (camp.user.userprofile.organizer_score / user_feedback_count), 1)
+            except ZeroDivisionError:
+                camp.user.userprofile.star_point = feedback.point
+
+            camp.user.userprofile.save()
             feedback.save()
 
     context = {'form': form, 'camp': camp}
