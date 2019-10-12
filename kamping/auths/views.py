@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 
 from auths.forms import LoginForm, RegisterForm, UserProfileUpdateForm
-from camp.models import Camp, CampParticipants
+from camp.models import Camp, CampParticipants, Feedback
 
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render
@@ -60,6 +60,7 @@ def user_profile(request, username):
     user = get_object_or_404(User, username=username)
 
     data = {'html': ''}
+    feedback_count = Feedback.user_feedback_count(user)
 
     page = request.GET.get('page1', 1)
     camp_list = Camp.objects.filter(user=user)
@@ -73,7 +74,7 @@ def user_profile(request, username):
 
     context = {'user': user, 'camp_list': camp_list, 'camp_list_count': camp_list_count,
                'camp_joined_list': camp_joined_list, 'camp_joined_list_count': camp_joined_list_count,
-               'page': 'user-profile'
+               'page': 'user-profile', 'feedback_count': feedback_count
 
                }
 

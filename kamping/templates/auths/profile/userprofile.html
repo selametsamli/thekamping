@@ -109,6 +109,9 @@
                 <img style="height:150px" ; width="150px" ; class="pull-left"
                      src="{{ user.userprofile.get_profile_photo }}">
                 <br>
+                <span> Organizatör puanı:{{ user.userprofile.star_point }} ( {{ feedback_count }} ) </span>
+
+
                 <a class="btn btn-default" href="{% url 'user-profile-update' %}">Profilini Güncelle</a>
             </div>
 
