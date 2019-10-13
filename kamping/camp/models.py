@@ -166,10 +166,13 @@ class Comment(VoteModel, models.Model):
 
 
 class Feedback(models.Model):
+    PUAN = [(None, 'Lütfen birini seçiniz'), (1, '(1) Çok Kötü'), (2, '(2) Kötü'), (3, '(3) Normal'), (4, '(4) İyi'),
+            (5, '(5) Çok İyi')]
+
     user = models.ForeignKey(User, null=True, default=1, related_name='feedback', on_delete=models.CASCADE)
     camp = models.ForeignKey(Camp, null=True, on_delete=models.CASCADE, related_name='feedback')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Oluşturulma Tarihi", null=True)
-    point = models.SmallIntegerField(verbose_name="Puan")
+    point = models.SmallIntegerField(verbose_name="Puan", choices=PUAN)
     content = models.TextField()
 
     def __str__(self):
