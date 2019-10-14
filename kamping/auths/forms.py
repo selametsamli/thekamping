@@ -3,8 +3,22 @@ import re
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-
+from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from auths.models import UserProfile
+
+
+class PasswordResetFormCustom(PasswordResetForm):
+    def __init__(self, *args, **kwargs):
+        super(PasswordResetFormCustom, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs = {'class': 'form-control', 'placeholder': 'E-posta'}
+
+
+class SetPasswordFormCustom(SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super(SetPasswordFormCustom, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs = {'class': 'form-control'}
 
 
 class LoginForm(forms.Form):
@@ -100,4 +114,3 @@ class UserProfileUpdateForm(forms.ModelForm):
             raise forms.ValidationError('Bu email adresi sistemde mevcut.')
 
         return email
-

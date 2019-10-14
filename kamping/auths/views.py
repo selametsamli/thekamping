@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse
 
-from auths.forms import LoginForm, RegisterForm, UserProfileUpdateForm
+from auths.forms import LoginForm, RegisterForm, UserProfileUpdateForm, PasswordResetFormCustom, SetPasswordFormCustom
 from camp.models import Camp, CampParticipants, Feedback
 
 from django.contrib.sites.shortcuts import get_current_site
@@ -16,6 +16,8 @@ from django.template.loader import render_to_string
 from auths.tokens import account_activation_token
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
 
 
 def user_login(request):
@@ -158,3 +160,11 @@ def activate(request, uidb64, token):
         return render(request, 'auths/email-verification/email_activation_success.html')
     else:
         return render(request, 'auths/email-verification/account_activation_invalid.html')
+
+
+class CustomPasswordReset(PasswordResetView):
+    PasswordResetView.form_class = PasswordResetFormCustom
+
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    PasswordResetConfirmView.form_class = SetPasswordFormCustom
