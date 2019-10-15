@@ -1,0 +1,39 @@
+{% if user.userprofile.user_full_name %}
+    <span class="text"><b>{{ user.userprofile.user_full_name|upper }}</b></span>
+    <br/>
+{% else %}
+    <span class="text"> <b>{{ user.username }}</b> </span>
+{% endif %} <br>
+
+{% if user.userprofile.bio %}
+    <span class="text">{{ user.userprofile.bio }}</span>
+{% else %}
+    <a href="#">Bio eklemek için tıklayın</a>
+{% endif %}            </div>
+<div class="col-lg-2 pull-right ">
+    <img style="height:150px" ; width="150px" ; class="pull-left"
+         src="{{ user.userprofile.get_profile_photo }}">
+    <br>
+    <span> Organizatör puanı:{{ user.userprofile.star_point }} ( {{ feedback_count }} ) </span>
+
+
+    <a class="btn btn-default" href="{% url 'user-profile-update' %}">Profilini Güncelle</a>
+</div>
+
+<div class="col-lg-8 ">
+    <h2 class="page-header"> Oluşturduğum Kamplar <span> ( {{ camp_list_count }} )</span></h2>
+
+    <div class="profile_camp_list">
+
+
+    </div>
+
+</div>
+<div class="col-lg-8">
+    <h2 class="page-header"> Katıldığım kamplar <span> ( {{ camp_joined_list_count }} )</span></h2>
+
+    <div class="profile-joined-camp">
+
+    </div>
+
+</div>

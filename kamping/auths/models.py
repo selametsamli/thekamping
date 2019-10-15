@@ -16,7 +16,7 @@ class UserProfile(models.Model):
     sex = models.CharField(choices=SEX, blank=True, null=True, max_length=6, verbose_name='Cinsiyet')
     email_confirmed = models.BooleanField(default=False)
     organizer_score = models.IntegerField(default=0, null=True, verbose_name='organiztör puanı')
-    star_point = models.FloatField(verbose_name='Yıldız Puanı', null=True, default=0,)
+    star_point = models.FloatField(verbose_name='Yıldız Puanı', null=True, default=0, )
 
     class Meta:
         verbose_name_plural = 'Kullanici Profilleri'
