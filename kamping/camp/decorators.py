@@ -1,4 +1,4 @@
-from django.shortcuts import reverse, HttpResponseRedirect, get_object_or_404
+from django.shortcuts import get_object_or_404
 from camp.models import Camp, CampParticipants, Feedback
 from django.http import HttpResponse
 

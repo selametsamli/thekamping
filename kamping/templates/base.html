@@ -60,7 +60,7 @@
                            aria-expanded="false">{{ request.user }}<span
                                 class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href=" {% url 'user-profile' user.username %}"> <span
+                            <li><a href=" {% url 'user-profile' request.user %}"> <span
                                     class="glyphicon glyphicon-user"></span> Profile</a></li>
                             <li><a href="#"> <span class="glyphicon glyphicon-cog"></span> Settings
                             </a></li>

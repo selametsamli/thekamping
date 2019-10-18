@@ -11,7 +11,7 @@ from auths.forms import LoginForm, RegisterForm, UserProfileUpdateForm, Password
 from camp.models import Camp, CampParticipants, Feedback
 
 from django.contrib.sites.shortcuts import get_current_site
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from auths.tokens import account_activation_token
 from django.utils.encoding import force_bytes, force_text
