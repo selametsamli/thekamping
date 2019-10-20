@@ -8,7 +8,7 @@ class BlogForm(forms.ModelForm):
         model = Blog
         content = forms.CharField(widget=CKEditorWidget())
 
-        fields = ['title', 'content','cover_photo']
+        fields = ['title', 'content', 'cover_photo']
 
     def __init__(self, *args, **kwargs):
         super(BlogForm, self).__init__(*args, **kwargs)

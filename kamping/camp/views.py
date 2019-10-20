@@ -14,6 +14,7 @@ from kamping import settings
 from auths.decorators import is_user_active
 from camp.decorators import user_feedback_status
 from auths.models import UserProfile, User
+from camp.tasks import change_camp_status
 
 
 def camp_list(request):
@@ -41,6 +42,7 @@ def camp_create(request):
             camp.user = request.user
             camp.save()
             slug = camp.slug
+            change_camp_status.delay(slug)
             url = reverse('basic-upload', kwargs={'slug': slug})
             return HttpResponseRedirect(url)
     return render(request, 'camp/camp-create.html', context={'form': form})
