@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.db.models.functions import datetime
@@ -14,7 +16,8 @@ from kamping import settings
 from auths.decorators import is_user_active
 from camp.decorators import user_feedback_status
 from auths.models import UserProfile, User
-from camp.tasks import change_camp_status
+
+from camp.tasks import add
 
 
 def camp_list(request):
@@ -42,7 +45,11 @@ def camp_create(request):
             camp.user = request.user
             camp.save()
             slug = camp.slug
-            change_camp_status.delay(slug)
+            starter_date = str(camp.starter_date) + " " + str(camp.starter_time) + '.0'
+            date_time_obj = datetime.datetime.strptime(starter_date, '%Y-%m-%d %H:%M:%S.%f')
+            date_time_obj = date_time_obj - timedelta(hours=3)
+            add.apply_async((2, 1), eta=date_time_obj)
+
             url = reverse('basic-upload', kwargs={'slug': slug})
             return HttpResponseRedirect(url)
     return render(request, 'camp/camp-create.html', context={'form': form})
