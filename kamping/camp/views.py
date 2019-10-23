@@ -17,7 +17,7 @@ from auths.decorators import is_user_active
 from camp.decorators import user_feedback_status
 from auths.models import UserProfile, User
 
-from camp.tasks import add
+from camp.tasks import camp_change_status
 
 
 def camp_list(request):
@@ -45,11 +45,8 @@ def camp_create(request):
             camp.user = request.user
             camp.save()
             slug = camp.slug
-            starter_date = str(camp.starter_date) + " " + str(camp.starter_time) + '.0'
-            date_time_obj = datetime.datetime.strptime(starter_date, '%Y-%m-%d %H:%M:%S.%f')
-            date_time_obj = date_time_obj - timedelta(hours=3)
-            add.apply_async((2, 1), eta=date_time_obj)
-
+            date_time_obj = return_data_time_obj(camp)
+            camp_change_status.apply_async(kwargs={'slug': slug, 'user': camp.user.username}, eta=date_time_obj)
             url = reverse('basic-upload', kwargs={'slug': slug})
             return HttpResponseRedirect(url)
     return render(request, 'camp/camp-create.html', context={'form': form})
@@ -83,16 +80,9 @@ def upload_photo(request, slug):
 
 
 def camp_detail(request, slug):
-    currentDT = datetime.datetime.now()
-    currentDT = currentDT.strftime("%Y-%m-%d %H:%M:%S")
     camp = get_object_or_404(Camp, slug=slug)
-    starter_date = str(camp.starter_date) + " " + str(camp.starter_time)
     camp_image = Photo.objects.filter(camp=camp)
     comment_form = CommentForm(data=request.POST)
-
-    if currentDT > starter_date:
-        camp.status = 'başladı'
-        camp.save()
 
     url = 'https://www.google.com/maps/search/'
     for i in Camp.objects.all():
@@ -235,3 +225,10 @@ def feedback_create(request, slug):
 
     context = {'form': form, 'camp': camp}
     return render(request, 'feedback/feedback-create.html', context=context)
+
+
+def return_data_time_obj(camp):
+    starter_date = str(camp.starter_date) + " " + str(camp.starter_time) + '.0'
+    date_time_obj = datetime.datetime.strptime(starter_date, '%Y-%m-%d %H:%M:%S.%f')
+    date_time_obj = date_time_obj - timedelta(hours=3)
+    return date_time_obj
