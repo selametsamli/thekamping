@@ -24,3 +24,4 @@ urlpatterns = [
     path('password_reset_confirm/', auth_views.PasswordResetCompleteView, name="password-reset-complate"),
 
 ]
+

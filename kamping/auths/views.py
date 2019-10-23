@@ -18,6 +18,7 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
+from auths.tasks import send_mail_verification
 
 
 def user_login(request):
@@ -136,13 +137,15 @@ def email_verification_page(request):
 def verification_mail_send(request):
     current_site = get_current_site(request)
     subject = 'TheKamping Email Doğrulaması'
+    user = request.user
     message = render_to_string('auths/email-verification/account_activation_email.html', {
         'user': request.user,
         'domain': current_site.domain,
         'uid': urlsafe_base64_encode(force_bytes(request.user.pk)),
         'token': account_activation_token.make_token(request.user),
     })
-    request.user.email_user(subject, message)
+    send_mail_verification.apply_async(kwargs={'subject': subject, 'message': message},
+                                       countdown=2)
     return HttpResponseRedirect(reverse('post-list'))
 
 

@@ -12,10 +12,8 @@ from camp.forms import CampForm, PhotoForm, CommentForm, SearchForm, FeedbackFor
 from camp.models import Camp, CampParticipants, Photo, Comment, Feedback
 from django.db.models import Q
 
-from kamping import settings
 from auths.decorators import is_user_active
 from camp.decorators import user_feedback_status
-from auths.models import UserProfile, User
 
 from camp.tasks import camp_change_status
 
