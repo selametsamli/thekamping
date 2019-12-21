@@ -108,3 +108,9 @@ venv.bak/
 .idea/
 media/
 bilgiler/
+
+Pipfile
+Pipfile.lock
+
+config/
+Dockerfile

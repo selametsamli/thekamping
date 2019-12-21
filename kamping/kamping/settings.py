@@ -78,12 +78,25 @@ WSGI_APPLICATION = 'kamping.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+with open("kamping/bilgiler/db_config.json") as read_file:
+    data_database = read_file.read()
+
+obj = json.loads(data_database)
+
+name = obj['name']
+user = obj['user']
+password = obj['password']
+
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'kamping',
-        'USER': 'seviselim',
-        'PASSWORD': 'evlenmedenolmaz',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': name,
+        'USER': user,
+        'PASSWORD': password,
+        'HOST': 'kamping',
+        'PORT': '5432',
     }
 }
 
@@ -141,7 +154,7 @@ CKEDITOR_CONFIGS = {
 
 }
 
-with open("bilgiler/bilgiler.json") as read_file:
+with open("kamping/bilgiler/bilgiler.json") as read_file:
     data = read_file.read()
 
 obj = json.loads(data)
