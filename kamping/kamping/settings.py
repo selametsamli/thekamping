@@ -78,24 +78,15 @@ WSGI_APPLICATION = 'kamping.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-with open("kamping/bilgiler/db_config.json") as read_file:
-    data_database = read_file.read()
-
-obj = json.loads(data_database)
-
-name = obj['name']
-user = obj['user']
-password = obj['password']
-
 
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': name,
-        'USER': user,
-        'PASSWORD': password,
-        'HOST': 'kamping',
+        'NAME': 'thekamping',
+        'USER': 'selocum',
+        'PASSWORD': '321bitirisi',
+        'HOST': 'kamping_db',
         'PORT': '5432',
     }
 }
@@ -154,14 +145,21 @@ CKEDITOR_CONFIGS = {
 
 }
 
-with open("kamping/bilgiler/bilgiler.json") as read_file:
-    data = read_file.read()
-
-obj = json.loads(data)
-
-username = obj['username']
-password = obj['password']
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-CELERY_BROKER_URL = 'amqp://localhost'
+
+from celery.schedules import crontab
+
+CELERY_BEAT_SCHEDULE = {
+    'hello': {
+        'task': 'app.tasks.hello',
+        'schedule': crontab()  # execute every minute
+    }
+}
+
+CELERY_BROKER_URL = 'redis://redis:6379'
+CELERY_RESULT_BACKEND = 'redis://redis:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'

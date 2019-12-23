@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+
+
+{% block icerik %}
+
+    <div class="row">
+        <div class="col-lg-12 pull-center">
+            <div class="col-lg-12">
+
+                <form style="margin-bottom: 15px;" class="col-lg-6" action="{% url 'camp-list' %}">
+                    <div class="col-lg-8">
+                        {% for field in search_form %}
+                            {{ field }}
+                        {% endfor %}
+                    </div>
+                    <input class="btn btn-success col-lg-2 " value="Ara" type="submit">
+
+                </form>
+
+            </div>
+
+            <div class="camp">
+
+                {% for camp in camps %}
+                    <div class="col-lg-3 pull-left">
+                        {% if camp.cover_photo %}
+                            <img width="275" height="208" class="img-responsive" src="{{ camp.cover_photo }}" alt="">
+                        {% endif %}
+
+                        <h3><a href="{% url 'camp-detail' camp.slug %}"> {{ camp.title }}</a></h3>
+
+                        <p> Başlangıç tarihi: {{ camp.starter_date }}</p>
+
+                        <p>Etkinliği oluşturan: <a href="/auths/{{ camp.user }}"> {{ camp.user }}</a></p>
+
+
+                        {% if camp.status == 'yayında' %}
+                            <span class="text-info"> {{ camp.get_participant_count }} Kişi katıldı</span> <br>
+                            <span class="text text-success"><b>{{ camp.kalan_katilimci }}</b> Kişi katılabilir  </span>
+
+                        {% elif camp.status == 'başladı' %}
+                            <span class="text-primary"> {{ camp.get_participant_count }} Kişi bu kampın tadını çıkartıyor</span>
+                            <br>
+
+                        {% endif %}
+
+
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

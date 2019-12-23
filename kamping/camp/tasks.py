@@ -13,3 +13,10 @@ def camp_change_status(*args, **kwargs):
     camp.save()
     text = "' {} ' Status durumu ' {} ' Olarak Değiştirildi".format(camp.title, camp.status)
     return text
+
+from celery import shared_task
+
+
+@shared_task
+def hello():
+    print('Hello there!')

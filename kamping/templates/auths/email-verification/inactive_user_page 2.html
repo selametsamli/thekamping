@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+    Mail Adresi Onayla
+
+{% endblock %}
+
+
+{% block icerik %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-8 pull-center">
+                <h2 class="text-danger page-header">Email Adresi doğrulaman gerekiyor.</h2>
+                <p> Email hesabınız doğrulanmamış gözüküyor. Bu işlemi gerçekleştirebilmek için e-mail adresinizi
+                    doğrulamanız gerekmektedir.
+                    <br>
+                    Doğrulama kodunuz <b>{{ request.user.email }}</b> adresine gönderilecektir.
+                </p>
+                <div class="col-lg-8 col-lg-offset-2">
+                    <a class="btn btn-default" style="width: 100%" href="{% url 'verification-mail-send' %}">
+                        Gönder </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

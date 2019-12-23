@@ -1,0 +1,60 @@
+version: '3'
+
+services:
+  redis:
+    image: "redis:alpine"
+    command: ["redis-server"]
+    hostname: redis
+    ports:
+      - '127.0.0.1:6379:6379'
+
+
+
+  thekamping:
+    build: .
+    command: bash "./docker_entrypoint.sh"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    networks:
+      - database_network
+    depends_on:
+      - kamping_db
+      - redis
+
+  celery:
+    build: .
+    command: celery -A kamping worker -l info
+    volumes:
+      - .:/code
+    depends_on:
+      - thekamping
+      - kamping_db
+      - redis
+  celery-beat:
+    build: .
+    command: celery -A kamping beat -l info
+    volumes:
+      - .:/code
+    depends_on:
+      - thekamping
+      - kamping_db
+      - redis
+
+
+  kamping_db:
+    image: postgres:10
+    env_file:
+      - config/db/database_env
+    networks:
+      - database_network
+    volumes:
+      - database_volume:/var/lib/postgresql/data
+
+networks:
+  database_network:
+    driver: bridge
+
+volumes:
+  database_volume:

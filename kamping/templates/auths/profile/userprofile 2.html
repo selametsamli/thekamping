@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block ust_icerik %}
+
+    <script type="text/javascript" rel="script">
+        $(document).ready(function () {
+
+
+            var url = "{% url 'user-profile' user.username %} ";
+            $.ajax({
+                url: url,
+                method: "POST",
+                dataType: 'json',
+                data: {'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                success: function (data) {
+                    $(".profile_camp_list").html(data.html);
+                    $(".profile-joined-camp").html(data.html_joined);
+                }
+            });
+
+            $(".profile_camp_list").on('click', '#camp_list_next_page', function (e) {
+                e.preventDefault();
+                var url = $('#camp_list_next_page').attr('href');
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: {'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                    success: function (data) {
+                        $(".profile_camp_list").html(data.html);
+
+                    }
+                })
+            });
+            $(".profile_camp_list").on('click', '#camp_list_previous_page', function (e) {
+                e.preventDefault();
+                var url = $('#camp_list_previous_page').attr('href');
+
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: {'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                    success: function (data) {
+                        $(".profile_camp_list").html(data.html);
+
+                    }
+                })
+            });
+
+            $(".profile-joined-camp").on('click', '#camp_joined_list_previous_page', function (e) {
+
+                e.preventDefault();
+                var url = $('#camp_joined_list_previous_page').attr('href');
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: {'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                    success: function (data) {
+                        $(".profile-joined-camp").html(data.html_joined);
+
+                    }
+                })
+            });
+
+            $(".profile-joined-camp").on('click', '#camp_joined_list_next_page', function (e) {
+                e.preventDefault();
+                var url = $('#camp_joined_list_next_page').attr('href');
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: {'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                    success: function (data) {
+                        $(".profile-joined-camp").html(data.html_joined);
+
+                    }
+                })
+            })
+
+        })
+        ;
+    </script>
+
+{% endblock %}
+
+{% block title %} {{ user.profile.get_screen_name }}{% endblock %}
+
+{% block icerik %}
+
+    <div class="row ">
+        <div class="col-lg-12" style="margin-top: 50px;">
+
+            <div class="col-lg-8 pull-center">
+                {% if request.user == user %}
+                    {% include 'auths/profile/include/user-profile-owner.html' %}
+                {% else %}
+                    {% include 'auths/profile/include/user-profile-visitor.html' %}
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

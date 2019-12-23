@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="71fe8df8-1127-41e9-8b9a-62a2f1825dff" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/kamping/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/kamping/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/db/database_env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/kamping/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker_entrypoint.sh" beforeDir="false" afterPath="$PROJECT_DIR$/kamping/docker_entrypoint.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/auths/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/auths/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/auths/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/auths/decorators.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/auths/forms.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/auths/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/auths/migrations/0002_userprofile_email_confirmed.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/auths/migrations/0003_auto_20190930_1711.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/auths/migrations/0004_userprofile_organizer_score.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/auths/migrations/0005_auto_20191011_2114.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/auths/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/auths/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/auths/tasks.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/auths/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/auths/tokens.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/auths/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/auths/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/blog/migrations/0002_auto_20190924_1735.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/blog/migrations/0003_remove_blog_cover_photo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/blog/migrations/0004_auto_20190924_1740.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/blog/migrations/0005_blog_unique_id.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/blog/migrations/0006_remove_blog_unique_id.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/blog/migrations/0007_auto_20190924_1913.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/blog/migrations/0008_blog_cover_photo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/migrations/0002_auto_20190910_2100.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/migrations/0003_auto_20190914_1704.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/migrations/0004_camp_status.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/migrations/0005_auto_20190914_1735.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/migrations/0006_auto_20190914_1757.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/migrations/0007_photo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/migrations/0008_remove_camp_image.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/migrations/0009_auto_20190919_2135.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/migrations/0010_auto_20190919_2141.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/migrations/0011_auto_20190919_2144.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/migrations/0012_camp_cover_photo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/migrations/0013_comment.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/migrations/0014_auto_20190922_1916.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/migrations/0015_comment_camp.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/migrations/0016_remove_comment_camp.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/migrations/0017_auto_20190924_1833.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/migrations/0018_feedback.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/migrations/0019_auto_20191011_2112.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/migrations/0020_auto_20191011_2113.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/migrations/0021_auto_20191013_1607.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/migrations/0022_auto_20191221_1345.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/camp/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/kamping/camp/tasks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/kamping/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/kamping/kamping/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/kamping/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/kamping/kamping/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/kamping/requirements.txt" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kamping/kamping/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2070">
+              <caret line="139" column="16" selection-start-line="139" selection-start-column="16" selection-end-line="139" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kamping/Dockerfile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kamping/docker_entrypoint.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" column="39" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/kamping/docker-compose.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>celer</find>
+      <find>kamping</find>
+      <find>host</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/kamping/camp/tasks.py" />
+        <option value="$PROJECT_DIR$/kamping/kamping/__init__.py" />
+        <option value="$PROJECT_DIR$/kamping/Dockerfile" />
+        <option value="$PROJECT_DIR$/kamping/requirements.txt" />
+        <option value="$PROJECT_DIR$/kamping/config/db/database_env" />
+        <option value="$PROJECT_DIR$/kamping/kamping/settings.py" />
+        <option value="$PROJECT_DIR$/kamping/docker_entrypoint.sh" />
+        <option value="$PROJECT_DIR$/kamping/docker-compose.yml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="width" value="1280" />
+    <option name="height" value="800" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="thekamping" type="b2602c69:ProjectViewProjectNode" />
+              <item name="thekamping" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="thekamping" type="b2602c69:ProjectViewProjectNode" />
+              <item name="thekamping" type="462c0819:PsiDirectoryNode" />
+              <item name="kamping" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="thekamping" type="b2602c69:ProjectViewProjectNode" />
+              <item name="thekamping" type="462c0819:PsiDirectoryNode" />
+              <item name="kamping" type="462c0819:PsiDirectoryNode" />
+              <item name="kamping" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="ignore_missing_gitignore" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/kamping" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/kamping" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/kamping" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="71fe8df8-1127-41e9-8b9a-62a2f1825dff" name="Default Changelist" comment="" />
+      <created>1577107681105</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1577107681105</updated>
+      <workItem from="1577107682933" duration="5463000" />
+      <workItem from="1577122003833" duration="481000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="5944000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2536349" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" weight="0.32876712" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32876712" />
+      <window_info anchor="bottom" id="Python Console" order="12" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="SciView" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/docker-compose.yml" />
+    <entry file="file://$PROJECT_DIR$/kamping/kamping/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kamping/auths/tasks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kamping/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" selection-start-line="11" selection-end-line="11" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kamping/kamping/celery.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kamping/config/db/database_env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kamping/camp/tasks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="50" selection-start-line="10" selection-start-column="50" selection-end-line="10" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kamping/auths/migrations/0001_initial 2.py" />
+    <entry file="file://$PROJECT_DIR$/kamping/auths/migrations/0001_initial.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kamping/camp/migrations/0001_initial 2.py" />
+    <entry file="file://$PROJECT_DIR$/kamping/camp/migrations/0002_auto_20190910_2100.py" />
+    <entry file="file://$PROJECT_DIR$/kamping/camp/migrations/0002_auto_20190910_2100 2.py" />
+    <entry file="file://$PROJECT_DIR$/kamping/kamping/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2070">
+          <caret line="139" column="16" selection-start-line="139" selection-start-column="16" selection-end-line="139" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kamping/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kamping/docker_entrypoint.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="39" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kamping/docker-compose.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

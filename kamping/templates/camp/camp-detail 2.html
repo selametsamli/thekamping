@@ -1,0 +1,276 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ camp.title }}
+{% endblock %}
+
+
+{% block ust_icerik %}
+    <style>
+        .column img:hover {
+            opacity: 1;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .container {
+            position: relative;
+            display: none;
+        }
+
+        .closebtn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: white;
+            font-size: 35px;
+            cursor: pointer;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".camp-action").on('click', '#add-camp', function (e) {
+                e.preventDefault();
+                var $this = $(this);
+                var $url = $this.attr('href');
+                $.ajax({
+                    url: $url,
+                    method: "GET",
+                    data: {},
+                    success: function (data) {
+                        var response = data.status;
+                        var count = data.count;
+                        if (data.durum == 'katilamaz') {
+                            alert(data.msg);
+
+                        } else {
+                            $this.closest('div').find('.camp-participant-count').html(count);
+                            if (response == 'added') {
+                                $this.closest('ul').find('#add-camp').html("Vazgeç Gönül");
+
+                            } else {
+                                $this.closest('ul').find('#add-camp').html("Katıl");
+
+                            }
+                        }
+                    }
+                })
+            });
+
+            var $window = $(this);
+            var $camp_comment_list = $window.find('#camp-comment-list');
+            $window.on('submit', '.comment-form', function (e) {
+                e.preventDefault();
+                var $this = $(this);
+                var $method = $this.attr('method');
+                var $data = $this.serialize();
+                var $url = $this.attr('action');
+                console.log($url);
+
+                $.ajax({
+
+                    url: $url,
+                    type: $method,
+                    dataType: 'json',
+                    data: $data,
+                    success: function (data) {
+                        console.log(data.camp_comment_html);
+
+                        $camp_comment_list.html(data.camp_comment_html);
+                        $this.find('#id_icerik').val('');
+
+
+                    },
+                    error: function () {
+                        alert("Bir hata oluştu")
+                    }
+
+
+                })
+            });
+            $window.on('click', '#camp-comment-list div.row a.yanitla-button', function (e) {
+                e.preventDefault();
+                var $this = $(this);
+                var $parent = $this.closest('div');
+                var $href = $this.attr('href');
+                var $comment_pk = $this.attr('comment_pk');
+                $.ajax({
+                    url: $href,
+                    type: "GET",
+                    dataTyp: "json",
+                    data: {'comment_pk': $comment_pk},
+                    success: function (data) {
+                        console.log(data);
+                        var $form_html = data.form_html;
+                        $parent.find('.child-form-container').html($form_html);
+                    },
+                    error: function () {
+
+                    }
+
+
+                })
+            });
+        });
+
+        function myFunction(imgs) {
+            var expandImg = document.getElementById("expandedImg");
+
+            expandImg.src = imgs.src;
+
+            expandImg.parentElement.style.display = "block";
+        }
+    </script>
+
+{% endblock %}
+
+
+{% block icerik %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="detail" class="col-lg-7 pull-left">
+                <h2><a href="{% url 'camp-list' %}">
+                    <span class="glyphicon glyphicon-circle-arrow-left"></span></a> <a>{{ camp.title|upper }}</a>
+
+                </h2>
+                <p class="float-left">Etkinlik sahibi: <span
+                        class="glyphicon glyphicon-user"></span>
+                    <a href="#">{{ camp.user }}</a></p>
+
+                <div class="camp-detail">
+                    <div class="cover-photo">
+                        <img class="col-lg-12" src="{{ camp.cover_photo }}" alt="" width="100%">
+                    </div>
+                    <div class="content col-lg-12" style="margin-top: 10px;">
+                        <p class="text-capitalize"><span>{{ camp.content | safe }} </span></p>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="camp-action col-lg-5 float-left">
+                <ul class="list-group list-group-item-text">
+                    <li class="list-group-item">
+                        <span class="glyphicon glyphicon-time "></span> Kamp Tarihi:
+                        <span>{{ camp.starter_date }} {{ camp.starter_time }}</span>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="glyphicon glyphicon-map-marker"></span> Kamp Yeri:<span>{{ camp.location }}</span>
+                    </li>
+                    <li class="list-group-item">
+
+                        <a id="add-camp" class="btn btn-default btn-block"
+                           href="{% url 'camp-add-or-remove' camp.slug %}">
+                            {% if request.user.username in camp.get_added_camp_participants_user %}
+                                Vazgeç Gönül
+                            {% else %}
+                                Katıl
+                            {% endif %}
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="glyphicon glyphicon-heart"></span>
+                        Katılımcı Sayısı:
+                        <span class="camp-participant-count">
+                                    <b>{{ camp.get_participant_count }}</b></span>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="glyphicon glyphicon-flag"></span>
+                        <a class="text-success" href="{{ url }}">Konumu Google haritalarda göster.</a>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="glyphicon glyphicon-tag">
+                            <a class="text-info" href="{% url 'feedback-create' camp.slug %}">Değerlendir</a>
+                        </span>
+                    </li>
+                </ul>
+
+
+                <div style="margin-top: 20px;" class="edited">
+                    {% if request.user == camp.user %}
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <a href="{% url 'camp-update' camp.slug %}" class="text-dark"> <span
+                                        class="glyphicon glyphicon-refresh"></span> Gönderiyi Güncelle</a>
+                            </li>
+
+                            <li class="list-group-item">
+                                <a href="{% url 'camp-remove' camp.slug %}" class=" "> <span
+                                        class="glyphicon glyphicon-remove-circle"></span> Gönderiyi Sil</a>
+
+                            </li>
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="camp-photos col-lg-8 ">
+            <h3 class="page-header"><span class="glyphicon glyphicon-picture"></span> Kamp ile ilgili görseller : </h3>
+
+            {% for camp_image in camp_image %}
+                <div class="col-lg-2">
+                    <div class="column">
+                        <img class="float-left" src="{{ camp_image.get_image }}" alt="Nature" height="100px"
+                             width="100px"
+                             onclick="myFunction(this);">
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="container col-lg-12">
+                <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+
+                <img id="expandedImg" style="width:100%">
+
+                <div id="imgtext"></div>
+            </div>
+
+
+            <div class="pull-center">
+                <span class="col-lg-12"><h2 class="page-header">- Sorular - </h2></span>
+
+
+                <div class="col-lg-12" id="camp-comment-list">
+
+                    <div class="col-lg-10 " id="camp-comment-list">
+                        {% include 'camp/include/comment/comment-list-partial.html' with camp=camp %}
+                    </div>
+
+                </div>
+                <div class="row" style="margin-top: 50px;">
+
+                    <form class="comment-form" action="{% url 'new-add-comment' camp.pk 'camp' %}" method="post">
+                        {% csrf_token %}
+                        {% for field in comment_form %}
+                            <div class="col-lg-1 img-responsive">
+                                <img height="60px;" width="60px;"
+                                     src="{{ request.user.userprofile.get_profile_photo }}">
+                            </div>
+                            <div class="col-lg-11">
+                                {{ field }}
+                            </div>
+                        {% endfor %}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <input type="submit" value="Soruyu sor" class="pull-right btn btn-success">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+{% endblock %}
