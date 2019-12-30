@@ -1,41 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="71fe8df8-1127-41e9-8b9a-62a2f1825dff" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/kamping/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/thekamping.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/thekamping.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/camp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/kamping/camp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/celerybeat.pid" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/kamping/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/kamping/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/kamping/kamping/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/kamping/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/auths/email-verification/account_activation_email 2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/auths/email-verification/account_activation_invalid 2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/auths/email-verification/email_activation_success 2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/auths/email-verification/inactive_user_page 2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/auths/login 2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/auths/register 2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/blog/post_create 2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/blog/post_detail 2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/blog/post_list 2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/blog/post_update 2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/camp/camp-create 2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/camp/camp-create_step2 2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/camp/camp-detail 2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/camp/camp-list 2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/camp/camp-update 2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/camp/include/comment/comment-child-comment-form 2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/camp/include/comment/comment-child-comment-form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/camp/include/comment/comment-list-partial 2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/camp/include/comment/comment-list-partial.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/feedback/feedback-create 2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/registration/password_reset_complete 2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/registration/password_reset_confirm 2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/registration/password_reset_done 2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kamping/templates/registration/password_reset_form 2.html" beforeDir="false" />
-    </list>
+    <list default="true" id="71fe8df8-1127-41e9-8b9a-62a2f1825dff" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,11 +13,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/kamping/camp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="90" column="44" selection-start-line="90" selection-start-column="38" selection-end-line="90" selection-end-column="44" />
-              <folding>
-                <element signature="e#0#40#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-2705">
+              <caret line="15" column="7" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -72,6 +35,7 @@
       <find>host</find>
       <find>sett</find>
       <find>db</find>
+      <find>camp-detail</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -153,7 +117,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -193,18 +157,18 @@
       <workItem from="1577447610102" duration="506000" />
       <workItem from="1577544696494" duration="2135000" />
       <workItem from="1577722228803" duration="1032000" />
-      <workItem from="1577724232448" duration="638000" />
+      <workItem from="1577724232448" duration="729000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13209000" />
+    <option name="totallyTimeSpent" value="13300000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18901454" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18901454" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -341,11 +305,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/kamping/camp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="90" column="44" selection-start-line="90" selection-start-column="38" selection-end-line="90" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-2705">
+          <caret line="15" column="7" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
         </state>
       </provider>
     </entry>
