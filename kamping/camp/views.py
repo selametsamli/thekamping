@@ -87,7 +87,8 @@ def camp_detail(request, slug):
         address = i.location
     url = url + str(address)
     form = CampForm()
-    return render(request, 'Camp/camp-detail.html',
+
+    return render(request, 'camp/camp-detail.html',
                   context={'camp': camp, 'form': form, 'url': url, 'camp_image': camp_image,
                            'comment_form': comment_form})
 

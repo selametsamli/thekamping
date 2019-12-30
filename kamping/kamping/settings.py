@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': 'thekamping',
         'USER': 'selocum',
         'PASSWORD': '321bitirisi',
-        'HOST': 'kamping_db',
+        'HOST': 'postgres',
         'PORT': '5432',
     }
 }
@@ -149,17 +149,4 @@ CKEDITOR_CONFIGS = {
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
-from celery.schedules import crontab
-
-CELERY_BEAT_SCHEDULE = {
-    'hello': {
-        'task': 'app.tasks.hello',
-        'schedule': crontab()  # execute every minute
-    }
-}
-
-CELERY_BROKER_URL = 'redis://redis:6379'
-CELERY_RESULT_BACKEND = 'redis://redis:6379'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
+CELERY_BROKER_URL = "amqp://rabbitmq"
