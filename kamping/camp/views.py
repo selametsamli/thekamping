@@ -18,6 +18,8 @@ from camp.decorators import user_feedback_status
 from camp.tasks import camp_change_status
 
 
+
+
 def camp_list(request):
     camps = Camp.objects.all()
     search_form = SearchForm(data=request.GET or None)

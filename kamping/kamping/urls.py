@@ -13,6 +13,8 @@ urlpatterns = [
     path('auths/', include('auths.urls')),
     path('blog/', include('blog.urls')),
 
+    path('api/camp/', include('camp.api.urls')),
+
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

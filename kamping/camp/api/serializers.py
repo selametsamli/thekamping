@@ -1,0 +1,13 @@
+from rest_framework import serializers
+
+from camp.models import Camp
+
+
+class CampSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Camp
+        fields = [
+            'user', 'title', 'content', 'created_date', 'starter_time', 'starter_date', 'cover_photo', 'size',
+            'location', 'status', 'slug'
+
+        ]

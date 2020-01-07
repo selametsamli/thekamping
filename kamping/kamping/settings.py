@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'blog',
     'vote',
     'ckeditor',
-    'django_celery_beat'
+    'django_celery_beat',
+    'rest_framework',
 
 ]
 
