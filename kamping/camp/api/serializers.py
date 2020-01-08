@@ -11,3 +11,11 @@ class CampSerializer(serializers.ModelSerializer):
             'location', 'status', 'slug'
 
         ]
+
+
+class CampCreateUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Camp
+        fields = [
+            "title", "content", "starter_date", 'starter_time', 'location', 'size'
+        ]
