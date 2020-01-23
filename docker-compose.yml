@@ -4,7 +4,7 @@ volumes:
   pgdata:
 services:
 
-  python: &python
+  thekamping: &thekamping
 
     build:
       context: .
@@ -36,7 +36,7 @@ services:
     image: rabbitmq:3.7-alpine
 
   celery_worker:
-    <<: *python
+    <<: *thekamping
     command: celery -A kamping worker --loglevel=info
     ports: []
     depends_on:

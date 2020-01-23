@@ -24,3 +24,4 @@ zipp==0.6.0
 celery
 redis
 djangorestframework
+psycopg2==2.7.4
