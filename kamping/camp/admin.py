@@ -5,7 +5,7 @@ from camp.models import Camp, CampParticipants, Photo, Comment, Feedback
 
 
 class CampAdmin(admin.ModelAdmin):
-    list_display = ('title', 'user', 'status')
+    list_display = ('title', 'user', 'status','slug')
 
 
 class CampParticipantsAdmin(admin.ModelAdmin):
