@@ -3,15 +3,20 @@ from rest_framework.generics import (
     ListAPIView,
     RetrieveAPIView,
     DestroyAPIView,
-    UpdateAPIView,
     CreateAPIView,
 
     RetrieveUpdateAPIView)
 
+from camp.api.permissions import IsOwner, UserIsVerified
 from camp.api.serializers import (
     CampSerializer,
     CampCreateUpdateSerializer
 )
+
+from rest_framework.permissions import (
+    IsAuthenticated,
+
+    IsAdminUser)
 
 from datetime import datetime, timedelta
 from camp.models import Camp
@@ -33,12 +38,14 @@ class CampDeleteAPIView(DestroyAPIView):
     queryset = Camp.objects.all()
     serializer_class = CampSerializer
     lookup_field = 'slug'
+    permission_classes = [IsOwner]
 
 
 class CampUpdateAPIView(RetrieveUpdateAPIView):
     queryset = Camp.objects.all()
     serializer_class = CampCreateUpdateSerializer
     lookup_field = 'slug'
+    permission_classes = [IsOwner]
 
     def perform_update(self, serializer):
         serializer.save(user=self.request.user)
@@ -47,6 +54,7 @@ class CampUpdateAPIView(RetrieveUpdateAPIView):
 class CampCreateAPIView(CreateAPIView):
     queryset = Camp.objects.all()
     serializer_class = CampCreateUpdateSerializer
+    permission_classes = [IsAuthenticated, UserIsVerified]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

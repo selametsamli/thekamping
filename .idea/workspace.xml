@@ -2,9 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71fe8df8-1127-41e9-8b9a-62a2f1825dff" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/thekamping.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/thekamping.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pipfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/camp/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/camp/api/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/.idea/dataSources.local.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/.idea/kamping.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kamping/.idea/workspace.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,10 +42,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="width" value="1280" />
-    <option name="height" value="800" />
-  </component>
   <component name="ProjectId" id="1WnM8GdVfXFVwvvhGV0vrAo9HDV" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -55,15 +62,16 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/kamping" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/kamping/kamping" />
       <recent name="$PROJECT_DIR$/kamping/kamping/settings" />
+      <recent name="$PROJECT_DIR$/kamping" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/kamping" />
     </key>
   </component>
@@ -96,11 +104,23 @@
       <workItem from="1577544696494" duration="2135000" />
       <workItem from="1577722228803" duration="1032000" />
       <workItem from="1577724232448" duration="729000" />
-      <workItem from="1579780746886" duration="593000" />
+      <workItem from="1579780746886" duration="1448000" />
+      <workItem from="1579861448841" duration="285000" />
+      <workItem from="1580124262929" duration="1762000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="378" y="154" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1579782988772">
+      <screen x="0" y="0" width="1280" height="800" />
+    </state>
+    <state x="378" y="154" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/-1920.-101.1920.1080/0.0.1280.800@0.0.1280.800" timestamp="1579782988772" />
+    <state x="149" y="39" key="SettingsEditor" timestamp="1579782967453">
+      <screen x="0" y="0" width="1280" height="800" />
+    </state>
+    <state x="149" y="39" key="SettingsEditor/-1920.-101.1920.1080/0.0.1280.800@0.0.1280.800" timestamp="1579782967453" />
   </component>
 </project>
