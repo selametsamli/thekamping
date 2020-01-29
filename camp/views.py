@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 
+from celery.result import AsyncResult
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.db.models.functions import datetime
@@ -16,8 +17,7 @@ from auths.decorators import is_user_active
 from camp.decorators import user_feedback_status
 
 from camp.tasks import camp_change_status
-
-
+from kamping.celery import app
 
 
 def camp_list(request):
@@ -46,7 +46,9 @@ def camp_create(request):
             camp.save()
             slug = camp.slug
             date_time_obj = return_data_time_obj(camp)
-            camp_change_status.apply_async(kwargs={'slug': slug, 'user': camp.user.username}, eta=date_time_obj)
+            res = camp_change_status.apply_async(kwargs={'slug': slug, 'user': camp.user.username}, eta=date_time_obj)
+            camp.celery_id = res.id
+            camp.save()
             url = reverse('basic-upload', kwargs={'slug': slug})
             return HttpResponseRedirect(url)
     return render(request, 'camp/camp-create.html', context={'form': form})
@@ -97,16 +99,6 @@ def camp_detail(request, slug):
 
 @is_user_active
 @login_required(login_url=reverse_lazy('user-login'))
-def camp_remove(request, slug):
-    camp = get_object_or_404(Camp, slug=slug)
-    if request.user != camp.user:
-        return HttpResponseForbidden
-    camp.delete()
-    return redirect('')
-
-
-@is_user_active
-@login_required(login_url=reverse_lazy('user-login'))
 def camp_update(request, slug):
     camp = get_object_or_404(Camp, slug=slug)
     if request.user != camp.user:
@@ -127,6 +119,7 @@ def camp_remove(request, slug):
     camp = get_object_or_404(Camp, slug=slug)
     if request.user != camp.user:
         return HttpResponseForbidden
+    app.control.revoke(camp.celery_id)
     camp.delete()
     return redirect('camp-list')
 

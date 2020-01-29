@@ -43,8 +43,7 @@ class Camp(models.Model):
                               verbose_name='Status')
 
     slug = models.SlugField(null=True, unique=True, editable=False, verbose_name='Slug')
-
-
+    celery_id = models.CharField(verbose_name='celery_id', null=True, max_length=255)
 
     def get_absolute_url(self):
         return reverse('camp-detail', kwargs={'slug': self.slug})

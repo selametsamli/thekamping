@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from camp.models import Camp
+from camp.models import Camp, Photo
 
 
 class CampSerializer(serializers.ModelSerializer):
@@ -18,4 +18,13 @@ class CampCreateUpdateSerializer(serializers.ModelSerializer):
         model = Camp
         fields = [
             "title", "content", "starter_date", 'starter_time', 'location', 'size'
+        ]
+
+
+class CampCreatePictureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Photo
+
+        fields = [
+            'file'
         ]

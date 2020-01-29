@@ -10,7 +10,8 @@ from rest_framework.generics import (
 from camp.api.permissions import IsOwner, UserIsVerified
 from camp.api.serializers import (
     CampSerializer,
-    CampCreateUpdateSerializer
+    CampCreateUpdateSerializer,
+    CampCreatePictureSerializer
 )
 
 from rest_framework.permissions import (
@@ -19,7 +20,7 @@ from rest_framework.permissions import (
     IsAdminUser)
 
 from datetime import datetime, timedelta
-from camp.models import Camp
+from camp.models import Camp, Photo
 from camp.tasks import camp_change_status
 
 
@@ -70,3 +71,14 @@ class CampCreateAPIView(CreateAPIView):
         date_time_obj = datetime.strptime(starter_date, '%Y-%m-%d %H:%M:%S.%f')
         date_time_obj = date_time_obj - timedelta(hours=3)
         return date_time_obj
+
+
+class CampCreatePictureAPIView(CreateAPIView):
+    queryset = Photo.objects.all()
+    serializer_class = CampCreatePictureSerializer
+    lookup_field = 'slug'
+    permission_classes = [IsOwner]
+
+    def perform_create(self, serializer):
+        camp = get_object_or_404(Camp, slug=self.lookup_field)
+        serializer.save(camp=camp)

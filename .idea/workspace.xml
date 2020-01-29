@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71fe8df8-1127-41e9-8b9a-62a2f1825dff" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/camp/api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/camp/api/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/camp/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/camp/api/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/camp/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/camp/api/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/camp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/camp/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/camp/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/camp/tasks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/camp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/camp/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +99,8 @@
       <workItem from="1577724232448" duration="729000" />
       <workItem from="1579780746886" duration="1448000" />
       <workItem from="1579861448841" duration="285000" />
-      <workItem from="1580124262929" duration="2005000" />
+      <workItem from="1580124262929" duration="3094000" />
+      <workItem from="1580303951995" duration="3987000" />
     </task>
     <servers />
   </component>

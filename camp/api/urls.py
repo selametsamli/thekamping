@@ -4,8 +4,8 @@ from camp.api.views import (
     CampDetailAPIView,
     CampUpdateAPIView,
     CampDeleteAPIView,
-    CampCreateAPIView
-)
+    CampCreateAPIView,
+    CampCreatePictureAPIView)
 
 urlpatterns = [
     path('camp-list/', CampListAPIView.as_view(), name='api-camp-list'),
@@ -13,5 +13,6 @@ urlpatterns = [
     path('camp-update/<slug>', CampUpdateAPIView.as_view(), name='api-camp-update'),
     path('camp-delete/<slug>', CampDeleteAPIView.as_view(), name='api-camp-delete'),
     path('camp-create/', CampCreateAPIView.as_view(), name='api-camp-create'),
+    path('camp-create-picture/<slug>', CampCreatePictureAPIView.as_view(), name='api-camp-create-picture'),
 
 ]
