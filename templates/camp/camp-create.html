@@ -11,11 +11,16 @@
 {% block ust_icerik %}
 
 
-    <script type="text/javascript">
 
+    <script type="text/javascript">
         $(function () {
-            $('#datetimepicker1').datetimepicker({
-                format: "DD.MM.YYYY"
+            $('#datetimepicker5').datetimepicker({
+                defaultDate: "11/1/2013",
+                disabledDates: [
+                    moment("12/25/2013"),
+                    new Date(2013, 11 - 1, 21),
+                    "11/22/2013 00:53"
+                ]
             });
         });
     </script>
@@ -40,8 +45,8 @@
 
                             <div class="form-group">
                                 <label class="control-label">{{ field.label }}</label>
-                                <div class='input-group date' id='datetimepicker1'>
-                                    {{ field }}
+                                <div class='input-group date' id='datetimepicker5'>
+                                    <input type='text' class="form-control"/>
                                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>

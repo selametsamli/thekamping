@@ -32,15 +32,18 @@
 
                     {% if field.name == 'starter_date' %}
 
+
                         <div class="form-group">
                             <label class="control-label">{{ field.label }}</label>
                             <div class='input-group date' id='datetimepicker2'>
                                 {{ field }}
                                 <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
+                                 <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
                             </div>
                         </div>
+
+
 
                     {% else %}
                         <div class="form-group">

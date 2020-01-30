@@ -68,6 +68,27 @@
       <recent name="$PROJECT_DIR$/kamping" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="buildCliOptions" value="" />
+          <option name="command" value="" />
+          <option name="containerName" value="" />
+          <option name="entrypoint" value="" />
+          <option name="imageTag" value="" />
+          <option name="commandLineOptions" value="" />
+          <option name="sourceFilePath" value="Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.Dockerfile" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
       <list>
@@ -100,7 +121,8 @@
       <workItem from="1579780746886" duration="1448000" />
       <workItem from="1579861448841" duration="285000" />
       <workItem from="1580124262929" duration="3094000" />
-      <workItem from="1580303951995" duration="3987000" />
+      <workItem from="1580303951995" duration="4278000" />
+      <workItem from="1580382097229" duration="3298000" />
     </task>
     <servers />
   </component>
@@ -108,6 +130,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="335" y="0" key="#Dockerfile" timestamp="1580382111611">
+      <screen x="0" y="0" width="1280" height="800" />
+    </state>
+    <state x="335" y="0" key="#Dockerfile/0.0.1280.800@0.0.1280.800" timestamp="1580382111611" />
     <state x="378" y="154" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1579782988772">
       <screen x="0" y="0" width="1280" height="800" />
     </state>

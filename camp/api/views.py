@@ -22,6 +22,7 @@ from rest_framework.permissions import (
 from datetime import datetime, timedelta
 from camp.models import Camp, Photo
 from camp.tasks import camp_change_status
+from kamping.celery import app
 
 
 class CampListAPIView(ListAPIView):
@@ -40,6 +41,11 @@ class CampDeleteAPIView(DestroyAPIView):
     serializer_class = CampSerializer
     lookup_field = 'slug'
     permission_classes = [IsOwner]
+
+    def perform_destroy(self, instance):
+        camp = get_object_or_404(Camp, slug=instance.slug)
+        app.control.revoke(camp.celery_id)
+        instance.delete()
 
 
 class CampUpdateAPIView(RetrieveUpdateAPIView):
@@ -61,10 +67,11 @@ class CampCreateAPIView(CreateAPIView):
         serializer.save(user=self.request.user)
         camp = get_object_or_404(Camp, title=serializer.data['title'])
         date_time_obj = self.return_data_time_obj(serializer)
-
         slug = camp.slug
         user = camp.user.username
-        camp_change_status.apply_async(kwargs={'slug': slug, 'user': user}, eta=date_time_obj)
+        res = camp_change_status.apply_async(kwargs={'slug': slug, 'user': user}, eta=date_time_obj)
+        camp.celery_id = res.id
+        camp.save()
 
     def return_data_time_obj(self, serializer):
         starter_date = str(serializer.data['starter_date']) + " " + str(serializer.data['starter_time']) + '.0'
